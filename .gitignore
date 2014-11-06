@@ -1,0 +1,16 @@
+
+.idea/*
+
+*.iml
+
+node-agent/target/
+
+*.classpath
+
+*.project
+
+.settings/
+
+node-server/overlays/
+
+node-server/target/

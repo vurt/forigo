@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="node.server.NodeMapper">	
+	
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  TD_NODE.id_ ,
+		  TD_NODE.group ,
+		  TD_NODE.remark ,
+		  TD_NODE.last_heart_beat 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="id != null">and TD_NODE.id_ = #{id}</if>
+	    <if test="group != null">and TD_NODE.group = #{group}</if>
+	    <if test="remark != null">and TD_NODE.remark = #{remark}</if>
+	    <if test="lastHeartBeat != null">and TD_NODE.last_heart_beat = #{lastHeartBeat}</if>
+</sql>
+
+
+<!-- ElementName:cache,Generated=false -->
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="node.server.Node">
+	insert into TD_NODE(
+	        <if test="id != null">id_</if>
+	        <if test="group != null">,group</if>
+	        <if test="remark != null">,remark</if>
+	        <if test="lastHeartBeat != null">,last_heart_beat</if>
+		)
+	 values (
+	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
+	         <if test="group != null">,#{group,jdbcType=VARCHAR}</if>
+	         <if test="remark != null">,#{remark,jdbcType=VARCHAR}</if>
+	         <if test="lastHeartBeat != null">,#{lastHeartBeat,jdbcType=TIMESTAMP}</if>
+	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="node.server.Node" resultType="int">
+		select count(*)
+	    from TD_NODE 
+		 <where>
+<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="node.server.Node">
+	update TD_NODE
+<set>
+	<if test="id != null">id_=#{id,jdbcType=VARCHAR},</if>
+	<if test="group != null">group=#{group,jdbcType=VARCHAR},</if>
+	<if test="remark != null">remark=#{remark,jdbcType=VARCHAR},</if>
+	<if test="lastHeartBeat != null">last_heart_beat=#{lastHeartBeat,jdbcType=TIMESTAMP}</if>
+</set>
+<where>
+	        <if test="id != null">
+		    and TD_NODE.id_ = #{id}
+		</if>
+	        <if test="group != null">
+		    and TD_NODE.group = #{group}
+		</if>
+	        <if test="remark != null">
+		    and TD_NODE.remark = #{remark}
+		</if>
+	        <if test="lastHeartBeat != null">
+		    and TD_NODE.last_heart_beat = #{lastHeartBeat}
+		</if>
+</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="node.server.Node">
+    delete from TD_NODE 
+<where>
+	        <if test="id != null">
+		    and TD_NODE.id_ = #{id}
+			</if>
+	        <if test="group != null">
+		    and TD_NODE.group = #{group}
+			</if>
+	        <if test="remark != null">
+		    and TD_NODE.remark = #{remark}
+			</if>
+	        <if test="lastHeartBeat != null">
+		    and TD_NODE.last_heart_beat = #{lastHeartBeat}
+			</if>
+</where>
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="node.server.Node" resultMap="NodeResult">
+	select 
+<include refid="column_sql"/>
+	    from TD_NODE 
+		 <where>
+<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:NodeResult,Generated=true -->
+<resultMap id="NodeResult" type="node.server.Node">
+	<result property="id" column="id_"/>
+	<result property="group" column="group"/>
+	<result property="remark" column="remark"/>
+	<result property="lastHeartBeat" column="last_heart_beat"/>
+</resultMap>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into TD_NODE (id_,group,remark,last_heart_beat) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.id,jdbcType = VARCHAR},
+		#{entity.group,jdbcType = VARCHAR},
+		#{entity.remark,jdbcType = VARCHAR},
+		#{entity.lastHeartBeat,jdbcType = TIMESTAMP}
+		from dual
+</foreach>
+</insert>
+
+
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="NodeResult">
+	select 
+<include refid="column_sql"/>
+	    from TD_NODE 
+		 <where>
+<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+
+
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="node.server.Node" resultMap="NodeResult">
+<foreach collection="list" item="entity" separator="intersect">
+	select 
+<include refid="column_sql"/>
+	    from TD_NODE 
+		 <where>
+<include refid="whereClause_sql"/>
+		</where>
+</foreach>
+</select>
+
+
+
+
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="node.server.Node" resultMap="NodeResult">
+	select 
+<include refid="column_sql"/>
+	    from TD_NODE 
+		 <where>
+<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+
+
+</mapper>
