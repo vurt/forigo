@@ -10,7 +10,7 @@ import java.io.IOException;
  * 节点服务器Channel工厂
  * Created by Vurt on 14/11/4.
  */
-public class NodeServerChannelFactory {
+public class ChannelHolder {
 
     /**
      * 创建一个新的与服务器通讯的Channel，工厂只负责创建，如需关闭需要手动调用：<br>

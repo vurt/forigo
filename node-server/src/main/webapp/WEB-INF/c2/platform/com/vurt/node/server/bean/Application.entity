@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" sn="app">
+  <docket:name>应用</docket:name>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="id_" docketId="entity:com.vurt.node.server.bean.Application" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="id_" length="64" name="应用id" type="string64">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="name" length="128" name="应用名称" type="string128">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="desc" length="1024" name="应用详细描述" type="string1024">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets>
+    <docket:subDocket code="versions" name="应用版本" id="entity:com.vurt.node.server.bean.ApplicationVersions" fk="id_:app_id"/>
+  </docket:subDokcets>
+  <docket:events/>
+  <docket:table table="TD_APP"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

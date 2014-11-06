@@ -2,8 +2,8 @@
 <DataSources xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.chinacreator.com/platform/core/datasource" default="">
   <datasource xsi:type="DBCPDataSource" default="true" id="mainds" name="新数据源" sys="true">
     <driverClassName>com.mysql.jdbc.Driver</driverClassName>
-    <url>jdbc:mysql://59.63.174.56:3306/nodes?useUnicode=true&amp;characterEncoding=UTF-8</url>
+    <url>jdbc:mysql://172.16.25.34:3306/node?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8</url>
     <username>root</username>
-    <password>zsp123</password>
+    <password>123456</password>
   </datasource>
 </DataSources>

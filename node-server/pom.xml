@@ -4,7 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.vurt</groupId>
     <artifactId>node-server</artifactId>
     <packaging>war</packaging>
 
@@ -17,25 +16,25 @@
     </parent>
 
     <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
+    	<dependency>
+    		<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>	
+    	</dependency>
         <dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-runtime</artifactId>
 			<version>4.1.1</version>	
 		</dependency>
-			<dependency>
+		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
 			<artifactId>c2-ui-components</artifactId>
-			<version>4.1.1-r3</version>		
+			<version>4.1.1-r5</version>		
 		</dependency>
 		<dependency>
 			<groupId>com.chinacreator.c2</groupId>
-			<artifactId>c2-sys-std-oracle</artifactId>
+			<artifactId>c2-sys-std-mysql</artifactId>
 			<version>4.1.1</version>
 		</dependency>
 		<dependency>

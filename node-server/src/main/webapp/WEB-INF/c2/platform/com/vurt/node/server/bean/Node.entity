@@ -2,25 +2,35 @@
 <entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" sn="node">
   <docket:name>节点</docket:name>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="id" docketId="entity:node.server.Node" type="UUID"/>
+    <docket:pkAttribute attribute="id_" docketId="entity:com.vurt.node.server.bean.Node" type="UUID"/>
   </docket:primaryKey>
   <docket:attributes>
     <docket:attribute code="id_" length="64" name="节点id" type="string64" sortType="升序">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="group" length="64" name="节点分组" type="string64">
+    <docket:attribute code="group_" length="64" name="节点分组" nullable="true" type="string64">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
-    <docket:attribute code="remark" length="1024" name="节点备注" type="string1024">
+    <docket:attribute code="position" length="256" name="节点位置(经纬度)" type="string256">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="address" length="1024" name="节点地址" nullable="true" type="string1024">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="remark" length="1024" name="节点备注" nullable="true" type="string1024">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="last_heart_beat" length="0" name="上次心跳时间" type="timestamp">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="reg_time" length="0" name="注册时间" type="timestamp">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
   </docket:attributes>
   <docket:subDokcets/>
   <docket:events/>
   <docket:table table="TD_NODE"/>
+  <docket:cache>false</docket:cache>
   <entity:datas/>
   <entity:views/>
 </entity:Entity>

@@ -25,5 +25,4 @@ public class ChannelHolder {
         return connection.createChannel();
     }
     
-    
 }

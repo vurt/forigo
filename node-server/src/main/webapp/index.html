@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html id="ng-app" ng-app="app">
+<head>
+<title>节点管理系统</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8" />
+
+<meta name="description" content="overview &amp; stats" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<!--[if !IE]> -->
+<link rel="stylesheet" href="assets/css/c2-all.css" />
+<!-- <![endif]-->
+
+<!-- 一些扩展特性  -->
+<script src="assets/ace-extra.min.js"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lte IE 9]>
+	<link rel="stylesheet" href="assets/compatible/dup/bootstrap.min.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/font-awesome/font-awesome.min.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/jquery-ui.min.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/ui.jqgrid.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/select2.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/ace.min.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/ace-fonts.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/pace.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/messenger.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/messenger-theme-flat.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/icon-select-modal.css"/>
+	<link rel="stylesheet" href="assets/compatible/dup/site.css"/>
+    <link rel="stylesheet" href="assets/compatible/ace-part2.min.css"/>
+    <link rel="stylesheet" href="assets/compatible/ace-ie.min.css"/>
+<![endif]-->
+<!--[if lte IE 9]>
+    <script src="assets/compatible/html5shiv.js"></script>
+    <script src="assets/compatible/respond.min.js"></script>
+<![endif]-->
+
+<link rel="stylesheet" href="css/custom.css" />
+
+<!-- 页面加载进度条 -->
+<script data-pace-options='{ "target": "#progress"}'
+	src="assets/pace.min.js"></script>
+</head>
+
+<body ng-controller="AppController" class="no-skin">
+	<div id="directives"></div>
+	<!-- 顶部导航条 -->
+	<div class="navbar navbar-default navbar-fixed-top" id="navbar">
+		<script type="text/javascript">
+			try {
+				ace.settings.check('navbar', 'fixed')
+			} catch (e) {
+			}
+		</script>
+
+		<div class="navbar-container" id="navbar-container">
+			<button type="button" class="navbar-toggle menu-toggler pull-left"
+				id="menu-toggler">
+				<span class="sr-only">Toggle sidebar</span> <span class="icon-bar"></span>
+
+				<span class="icon-bar"></span> <span class="icon-bar"></span>
+			</button>
+			<div class="navbar-header pull-left">
+				<a href="#" class="navbar-brand"> <small> <i
+						class="ace-icon fa fa-joomla"></i> 节点管理系统
+				</small>
+				</a>
+				<!-- /.brand -->
+			</div>
+			<!-- /.navbar-header -->
+
+			<div class="navbar-buttons navbar-header pull-right">
+				<ul c2-navbar></ul>
+				<!-- /.ace-nav -->
+			</div>
+			<!-- /.navbar-header -->
+		</div>
+		<!-- /.container -->
+	</div>
+
+	<!-- 页面主容器 -->
+	<div class="main-container" id="main-container">
+		<script type="text/javascript">
+			try {
+				ace.settings.check('main-container', 'fixed')
+			} catch (e) {
+			}
+		</script>
+		
+		<!-- 左侧导航条 -->
+		<div c2-sidebar class="sidebar sidebar-fixed compact responsive" id="sidebar"></div>
+
+		<!-- 中部容器，页面内容的显示区域 -->
+		<div class="main-content clearfix">
+			<div id="progress"></div>
+			<div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
+				<script type="text/javascript">
+					try {
+						ace.settings.check('breadcrumbs', 'fixed')
+					} catch (e) {
+					}
+				</script>
+
+				<ul class="breadcrumb">
+					<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
+					
+					<li ng-repeat="crumb in breadcrumbArray" >
+						<a href="javascript:void(0);" ng-if="crumb.url==null">{{crumb.title}}</a>
+						<a href="{{crumb.url}}" ng-if="crumb.url!=null">{{crumb.title}}</a>
+					</li>
+				</ul>
+
+				<div class="nav-search" id="nav-search">
+					<form class="form-search">
+						<span class="input-icon"> <input type="text"
+							placeholder="Search ..." class="nav-search-input"
+							id="nav-search-input" autocomplete="off" /> <i
+							class="ace-icon fa fa-search nav-search-icon"></i>
+						</span>
+					</form>
+				</div>
+			</div>
+			<div class="page-content clearfix">
+				<div id="view">
+					<div ng-view autoscroll></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- basic scripts -->
+	<script src="assets/jquery.min.js"></script>
+	<script type="text/javascript">
+		$.ajaxSetup({
+			async : false
+		});
+		$("#directives").load("ui/dir/directives.html");
+		$.ajaxSetup({
+			async : true
+		});
+	</script>
+	
+	<!--[if lte IE 9]>
+	<script>
+   	 //optional need to be loaded before angular-file-upload-shim(.min).js
+    	FileAPI = {
+        //only one of jsPath or jsUrl.
+        jsUrl: 'assets/compatible/FileAPI.min.js',
+
+        //only one of staticPath or flashUrl.
+        flashUrl: 'assets/compatible/FileAPI.flash.swf'
+    }
+	</script>
+	<script src="assets/compatible/angular-file-upload-shim.min.js"></script>
+	<![endif]-->
+	<!--[if !IE]> -->
+	<script src="assets/compatible/angular-file-upload-html5-shim.min.js"></script>
+	<!-- <![endif]-->
+	
+	<script src="assets/js/c2-all.js"></script>
+	<!-- 组件指令集合 -->
+	<script src="ui/dir/directives.js"></script>
+</body>
+</html>
