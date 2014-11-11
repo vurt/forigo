@@ -55,7 +55,6 @@ public class NodeObserver extends Thread implements ServerStartup {
 					false, null);
 			nodeService = new NodeService();
 			consumer = new QueueingConsumer(channel);
-			// 不自动发生已读回执，因为要在响应中带上一些自定义信息，比如最新要同步的文件版本等
 			channel.basicConsume(Constants.CHANNEL_HEARTBEAT, true, consumer);
 			this.start();
 		} catch (IOException e) {

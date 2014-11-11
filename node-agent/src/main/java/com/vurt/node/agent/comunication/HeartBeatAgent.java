@@ -4,19 +4,16 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
-import org.apache.commons.vfs2.FileObject;
-import org.apache.commons.vfs2.FileSystemManager;
-import org.apache.commons.vfs2.VFS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 
+import com.alibaba.fastjson.JSON;
 import com.chinacreator.c2.web.init.ServerStartup;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
+import com.vurt.node.agent.NodeAgent;
 
-/**
- * Created by Vurt on 14/11/4.
- */
 public class HeartBeatAgent implements ServerStartup{
 	private static final Logger LOGGER=LoggerFactory.getLogger(HeartBeatAgent.class);
     private Channel channel;
@@ -35,20 +32,39 @@ public class HeartBeatAgent implements ServerStartup{
 	@Override
 	public void startup(ServletContext arg0) {
 		try {
+			NodeAgent.init();
             this.channel = ChannelHolder.createChannel();
-            channel.queueDeclare(Constants.CHANNEL_HEARTBEAT, false, false, false, null);
-			channel.basicPublish("", Constants.CHANNEL_HEARTBEAT, null, "{'firstHearBeat':true,'id':'1'}".getBytes());
-			LOGGER.info("发送了心跳信息");
+            channel.queueDeclare(Constants.CHANNEL_HEARTBEAT, false, false,
+					false, null);
+            
+            HeartBeat heartBeat=new HeartBeat(true,NodeAgent.getNodeId());
+            heartBeat.setAddress(NodeAgent.getAddress());
+            heartBeat.setGroup(NodeAgent.getGroup());
+            heartBeat.setPosition(NodeAgent.getPosition());
+            //启动时先发送一次心跳
+			channel.basicPublish("", Constants.CHANNEL_HEARTBEAT, null, JSON.toJSONBytes(heartBeat));
 			
-//			FileSystemManager fsManager = VFS.getManager();
-//			FileObject fileObject=fsManager.resolveFile("http://");
-//			fileObject.getContent().getInputStream();
+			new FilePullRequestListener().start();
         } catch (IOException e) {
         }		
 	}
+	
+	/**
+	 * 每分钟一次心跳
+	 */
+	@Scheduled(cron="1 * *  * * * ")
+	public void SendHeartBeat(){
+		LOGGER.debug("Heart Beat!");
+		try {
+			channel.basicPublish("", Constants.CHANNEL_HEARTBEAT, null, JSON.toJSONBytes(new HeartBeat(NodeAgent.getNodeId())));
+		} catch (IOException e) {
+		}
+	}
 }
 
-class HearBeat{
+class HeartBeat{
+	private boolean firstHearBeat;
+	
 	private String id;
 	
 	private String group;
@@ -57,11 +73,16 @@ class HearBeat{
 	
 	private String address;
 	
-	public HearBeat(){
+	public HeartBeat(){
 	}
 	
-	public HearBeat(String id){
+	public HeartBeat(String id){
 		this.id=id;
+	}
+	
+	public HeartBeat(boolean firstHearBeat,String id){
+		this.id=id;
+		this.firstHearBeat=firstHearBeat;
 	}
 
 	public String getId() {
@@ -94,5 +115,13 @@ class HearBeat{
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	public boolean isFirstHearBeat() {
+		return firstHearBeat;
+	}
+	
+	public void setFirstHearBeat(boolean firstHearBeat) {
+		this.firstHearBeat = firstHearBeat;
 	}
 }

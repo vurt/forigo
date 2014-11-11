@@ -102,6 +102,10 @@
               </template:case>
             </dync:onChange>
           </dync:attribute>
+          <dync:attribute default="10" desc="每页显示记录条数。" group="表格设置" hidden="false" id="pageSize" name="页面大小" required="false" value="20">
+            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
         </form:attributes>
       </form:control>
       <form:child xsi:type="form:Group" id="toolbar_table" name="toolbar_table">
@@ -200,6 +204,51 @@
               </dync:render>
               <dync:children/>
             </dync:attribute>
+            <dync:attribute default="false" desc="是否允许该列被查询。" group="查询设置" hidden="false" id="search" name="查询" required="false" value="true">
+              <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+              <dync:children/>
+              <dync:onChange>
+                <template:case value="true">
+                  <template:hide param="searchType" value="false"/>
+                  <template:hide param="searchSelectUrl" value="false"/>
+                  <template:hide param="searchSelectId" value="false"/>
+                  <template:hide param="searchSelectText" value="false"/>
+                  <template:hide param="searchValue" value="false"/>
+                  <template:hide param="searchSopt" value="false"/>
+                  <template:hide param="searchDefaultvalue" value="false"/>
+                  <template:hide param="searchDataInit" value="false"/>
+                </template:case>
+                <template:case value="false">
+                  <template:hide param="searchType" value="true"/>
+                  <template:hide param="searchSelectUrl" value="true"/>
+                  <template:hide param="searchSelectId" value="true"/>
+                  <template:hide param="searchSelectText" value="true"/>
+                  <template:hide param="searchValue" value="true"/>
+                  <template:hide param="searchSopt" value="true"/>
+                  <template:hide param="searchDefaultvalue" value="true"/>
+                  <template:hide param="searchDataInit" value="true"/>
+                </template:case>
+              </dync:onChange>
+            </dync:attribute>
+            <dync:attribute default="eq" desc="使用控件默认实现的*查询按钮*事件时，可供查询选择的条件。*查询按钮*在表格控件中启用。" group="查询设置" hidden="false" id="searchSopt" name="查询条件" required="false" value="gt ge lt le">
+              <dync:render colSpan="1" height="0" multi="true" name="select">
+                <dync:item name="等于" value="eq"/>
+                <dync:item name="不等于" value="ne"/>
+                <dync:item name="小于" value="lt"/>
+                <dync:item name="小于等于" value="le"/>
+                <dync:item name="大于" value="gt"/>
+                <dync:item name="大于等于" value="ge"/>
+                <dync:item name="开始于" value="bw"/>
+                <dync:item name="不开始于" value="bn"/>
+                <dync:item name="属于" value="in"/>
+                <dync:item name="不属于" value="ni"/>
+                <dync:item name="结束于" value="ew"/>
+                <dync:item name="不结束于" value="en"/>
+                <dync:item name="空值" value="cn"/>
+                <dync:item name="非空值" value="nc"/>
+              </dync:render>
+              <dync:children/>
+            </dync:attribute>
           </form:attributes>
         </form:control>
       </form:child>
@@ -214,11 +263,20 @@
 
 lastHeartBeat_customFormatter:function(cellvalue,options,rowObject){
 	var lastHeartBeat=moment(cellvalue);
+	var tooltip=&quot;最后心跳时间：&quot;+lastHeartBeat.format('YYYY-MM-DD, hh:mm:ss');
 	if(moment().isBefore(lastHeartBeat.add(1,'m'))){
 		//最后一次心跳时间与当前时间的间隔小于一分钟
-		return '在线';
+		return &quot;&lt;span class='label label-success arrowed' title='&quot;+tooltip+&quot;'>在线&lt;/span>&quot;;
 	}else{
-		return '离线';
+		return &quot;&lt;span class='label label-danger arrowed-in' title='&quot;+tooltip+&quot;'>离线&lt;/span>&quot;;
 	}
-}</form:scripts>
+}
+/*,
+newField2_click:function($event){
+	var start=$view.start.getValue();
+	var end=$view.end.getValue();
+	
+	$view.list.setParams({filters:{groupOP:'AND',rules:[{field:'lastHeartBeat',op:'gt',data:start},{field:'lastHeartBeat',op:'lt',data:end}]}});
+}
+*/</form:scripts>
 </form:Form>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" sn="fileSyncInfo">
+  <docket:name>文件同步信息</docket:name>
+  <docket:primaryKey>
+    <docket:pkAttribute attribute="id_" docketId="entity:com.vurt.node.server.bean.FileSyncInfo" type="UUID"/>
+  </docket:primaryKey>
+  <docket:attributes>
+    <docket:attribute code="id_" length="22" name="id" type="char22">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="group_" length="64" name="分组名称" type="string64" sortType="升序">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="app" length="512" name="应用文件路径" nullable="true" type="string512">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="res" length="512" name="资源目录路径" nullable="true" type="string512">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="app_lastmodify" length="0" name="应用文件最后修改时间" nullable="true" type="timestamp">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="res_lastmodify" length="0" name="资源目录最后修改时间" nullable="true" type="timestamp">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+  </docket:attributes>
+  <docket:subDokcets/>
+  <docket:events/>
+  <docket:table table="TD_FILE_SYNC_INFO"/>
+  <entity:datas/>
+  <entity:views/>
+</entity:Entity>

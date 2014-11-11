@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="deployFile" log="false" className="com.vurt.node.server.file.FileDistributor" method="broadcastFilePullRequest">
+  <name>部署文件</name>
+  <desc>向指定分组的节点推送文件获取请求，如果推送的是目录，那么节点端会遍历目录下的所有文件，在节点上不存或者有修改的文件全部都会被同步过去</desc>
+  <inputs>
+    <input collection="false" desc="节点id，还支持{" id="group" name="分组名称" required="true"/>
+    <input collection="false" desc="请求详情" id="request" name="部署请求详情" required="true" type="com.vurt.node.server.comunication.data.FilePullRequest"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.group" name="group" signature="QString;" type="java.lang.String"/>
+    <param autoValue="Input.request" name="request" signature="QFilePullRequest;" type="com.vurt.node.server.comunication.data.FilePullRequest"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>
