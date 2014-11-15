@@ -1,0 +1,12 @@
+13:34:31 INFO: Generating RSA key and certificate...
+[UJD5U] 13:34:41 INFO: syncthing v0.10.5 (go1.3.3 windows-386 default) jenkins@build.syncthing.net 2014-11-04 04:11:54 UTC
+[UJD5U] 13:34:41 INFO: My ID: UJD5U27-HDOXZHW-ONWAQBW-56UGZWJ-DKWFWUE-LXH3IUM-KL4WJPS-4T4HYAB
+[UJD5U] 13:34:41 INFO: Starting web GUI on http://127.0.0.1:8765/
+[UJD5U] 13:34:41 INFO: Loading HTTPS certificate: open E:\forigo\node-agent\src\main\webapp\sync\https-cert.pem: The system cannot find the file specified.
+[UJD5U] 13:34:41 INFO: Creating new HTTPS certificate
+[UJD5U] 13:34:41 INFO: Generating RSA key and certificate...
+[UJD5U] 13:34:53 OK: Ready to synchronize app (read-write)
+[UJD5U] 13:34:53 OK: Ready to synchronize res (read-write)
+[UJD5U] 13:34:53 INFO: Device UJD5U27-HDOXZHW-ONWAQBW-56UGZWJ-DKWFWUE-LXH3IUM-KL4WJPS-4T4HYAB is "VURT-PC" at [dynamic]
+[UJD5U] 13:34:53 INFO: Completed initial scan (rw) of folder app
+[UJD5U] 13:34:53 INFO: Completed initial scan (rw) of folder res

@@ -393,6 +393,11 @@ page_beforeDataSourceLoad:function($params){
 
 
 startSyncBtn_click:function($event){
+	$http.get('ws/syncConifg').success(function(data){
+		console.log(angular.fromJson(data.result));
+	});
+	
+/*
 	if(!angular.isDefined($params.selectNode)){
 		Messenger.error('未选中任何文件或目录');
 		return;
@@ -416,7 +421,7 @@ startSyncBtn_click:function($event){
 			});
 		});
 	}
-	
+	*/
 },
 
 deployTo_change:function(){

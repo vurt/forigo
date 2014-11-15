@@ -17,6 +17,11 @@
     </parent>
 
     <dependencies>
+    	<dependency>
+    		<groupId>com.vurt</groupId>
+    		<artifactId>syncthing-client</artifactId>
+    		<version>${project.version}</version>
+    	</dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>

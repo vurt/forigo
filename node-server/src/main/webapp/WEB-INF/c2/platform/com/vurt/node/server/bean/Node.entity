@@ -26,6 +26,12 @@
     <docket:attribute code="reg_time" length="0" name="注册时间" type="timestamp">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
+    <docket:attribute code="device_id" length="128" name="同步设备id" type="string128">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
+    <docket:attribute code="app_version" length="128" name="应用版本" type="string128">
+      <docket:valueRange xsi:type="cdata:AllValueRange"/>
+    </docket:attribute>
   </docket:attributes>
   <docket:subDokcets/>
   <docket:events/>

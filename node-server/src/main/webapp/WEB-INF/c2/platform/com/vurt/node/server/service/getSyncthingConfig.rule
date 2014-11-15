@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="syncConifg" log="false" className="com.vurt.node.server.service.SyncthingService" method="getConfig">
+  <name>获取文件同步配置</name>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值"/>
+  </outputs>
+  <params/>
+  <return signature="QString;" type="java.lang.String"/>
+</CustomRule>

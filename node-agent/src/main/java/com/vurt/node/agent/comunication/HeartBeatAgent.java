@@ -13,6 +13,9 @@ import com.chinacreator.c2.web.init.ServerStartup;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.vurt.node.agent.NodeAgent;
+import com.vurt.node.agent.file.FileSyncThread;
+import com.vurt.syncthing.SyncthingClient;
+import com.vurt.syncthing.bean.SyncthingConfig;
 
 public class HeartBeatAgent implements ServerStartup{
 	private static final Logger LOGGER=LoggerFactory.getLogger(HeartBeatAgent.class);
@@ -30,9 +33,21 @@ public class HeartBeatAgent implements ServerStartup{
 	}
 
 	@Override
-	public void startup(ServletContext arg0) {
+	public void startup(ServletContext ctx) {
 		try {
+		    Thread fileSyncThread=new FileSyncThread(ctx.getRealPath("/"));
+		    fileSyncThread.start();
 			NodeAgent.init();
+			
+			SyncthingClient  client=new SyncthingClient("http://127.0.0.1:8765","vph619gjv08qng1qmh44omsc6j2g1g");
+			client.waitForValid();
+			SyncthingConfig config=client.getConfig();
+//			Folder folder=new Folder();
+//			folder.setPath("D:/test");
+//			folder.setId("myTest");
+//			config.getFolders().add(folder);
+//			client.setConfig(config);
+			
             this.channel = ChannelHolder.createChannel();
             channel.queueDeclare(Constants.CHANNEL_HEARTBEAT, false, false,
 					false, null);

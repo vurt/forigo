@@ -45,7 +45,7 @@
         </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Field" binding="$params.group" id="newField" name="按分组过滤" customize="true">
+    <form:child xsi:type="form:Field" binding="$params.selectedGroup" id="newField" name="按分组过滤" customize="true">
       <form:control type="widget/select_simple">
         <form:attributes source="widget/select_simple">
           <dync:attribute default="" desc="设置下拉框的可选项。有两种设置形式：  &#xA;                1.使用JSON对象的格式。如：{&quot;key&quot;:&quot;value&quot;,&quot;xx&quot;:&quot;xxx&quot;}或者[{&quot;id&quot;:&quot;xx&quot;,&quot;name&quot;:&quot;xxx&quot;,&quot;selected&quot;,true,&quot;type&quot;:&quot;1&quot;},{&quot;id&quot;:&quot;xx2&quot;,&quot;name&quot;:&quot;xxx2&quot;},&quot;type&quot;:&quot;2&quot;]。  &#xA;                2.使用数据源（逻辑数据源），数据源可以返回列表或者Map对象。如：$model.dataSourseName.result  &#xA;                &#xA;                @attention 数据源的返回结果会自动转为JSON格式的对象(Map&lt;String,String>)或者数组(List&lt;Object>)。  &#xA;                &#x9;当选项的JSON值是对象时（Object），key和value会自动作为下拉选项的值和显示名称。    &#xA;                &#x9;如果选项的JSON值是数组，则必须填写值属性名，显示属性名。" group="下拉框设置" hidden="false" id="selectOptions" name="选项" required="false" value="$model.queryGroups.groups">
@@ -54,6 +54,12 @@
           </dync:attribute>
           <dync:attribute default="" desc="需要选择空值的选项" group="下拉框设置" hidden="false" id="nullValue" name="空值选项" required="false" value="-- 所有分组 --">
             <dync:render colSpan="1" height="0" multi="false" name="text"/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" desc="下拉框值变换事件" group="事件设置" hidden="false" id="change" name="值变换事件" required="false" value="newField_change()">
+            <dync:render colSpan="2" height="0" multi="false" name="event">
+              <dync:item name="params" value=""/>
+            </dync:render>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -187,7 +193,16 @@
       </form:child>
       <form:child xsi:type="form:Field" binding="position" id="position" name="位置">
         <form:control type="widget/col_jqgrid">
-          <form:attributes source="widget/col_jqgrid"/>
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" desc="列的宽度;如果固定宽度为false,这列的实际宽度按占表格的百分比计算出来" group="基本设置" hidden="false" id="width" name="宽度" required="false" value="120">
+              <dync:render colSpan="1" height="0" multi="false" name="text"/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" desc="将列的定义宽度作为实际展现的宽度。" group="基本设置" hidden="false" id="fixed" name="宽度固定" required="false" value="true">
+              <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
         </form:control>
       </form:child>
       <form:child xsi:type="form:Field" binding="address" id="address" name="地址">
@@ -195,7 +210,7 @@
           <form:attributes source="widget/col_jqgrid"/>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="lastHeartBeat" id="lastHeartBeat" name="状态">
+      <form:child xsi:type="form:Field" binding="lastHeartBeat" id="lastHeartBeat" name="状态&amp;操作">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="" desc="将替换掉预定格式；可参考[jqGrid自定义格式](http://www.trirand.com/jqgridwiki/doku.php?id=wiki:custom_formatter)。&#xA;&#x9;&#x9;&#x9;@param cellvalue[String] 单元格值。&#xA;&#x9;&#x9;&#x9;@param options[JSON] 表格列选项。&#xA;&#x9;&#x9;&#x9;@param rowObject[JSON] 行数据。&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;@code&#xA;&#x9;&#x9;&#x9;newField8_customFormatter:function (cellvalue, options, rowObject){&#xA;&#x9;&#x9;&#x9;&#x9;return cellvalue+&quot;显示什么我说的算!!&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;//如果想写自定义按钮事件，可以在&quot;页面js&quot;内写下自己的脚本方法，然后通过ng-click来实现：&#xA;&#x9;&#x9;&#x9;newField5_customFormatter:function(cellvalue,options,rowObject){&#xA;&#x9;&#x9;&#x9;&#x9;return '&lt;button ng-click=functions.myClick(&quot;'+cellvalue+'&quot;)>&lt;i class=&quot;ace-icon fa fa-meh-o&quot;>&lt;/i>&lt;/button>';&#xA;&#x9;&#x9;&#x9;&#x9;//不调用其他方法，也可以用onClick&#xA;&#x9;&#x9;&#x9;&#x9;//return '&lt;button onClick=alert(&quot;hohoHa'+cellvalue+'&quot;)>&lt;i class=&quot;ace-icon fa fa-meh-o&quot;>&lt;/i>&lt;/button>';&#xA;&#x9;&#x9;&#x9;},&#xA;&#x9;&#x9;&#x9;myClick:function(value){&#xA;&#x9;&#x9;&#x9;&#x9;alert(&quot;我的点击事件：&quot;+value);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;@code&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;@attention 通过自己手写HTML代码事件调用&quot;页面js&quot;的方法时必须加上`functions.`的前缀。  &#xA;&#x9;&#x9;&#x9;通过html内置的事件(onClick)是不能够调用到&quot;页面js&quot;上的方法的,只能通过Angular内置的指令事件(ng-click)调用。  &#xA;&#x9;&#x9;&#x9;当然，如果你不需要调用到&quot;页面js&quot;的方法，还是可以用`onClick`事件的，如：`onClick=alert(&quot;hahaho'+cellvalue+'&quot;)`" group="格式设置" hidden="false" id="customFormatter" name="自定义格式" required="false" value="lastHeartBeat_customFormatter(cellvalue,options,rowObject)">
@@ -203,32 +218,6 @@
                 <dync:item name="param" value="cellvalue,options,rowObject"/>
               </dync:render>
               <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="false" desc="是否允许该列被查询。" group="查询设置" hidden="false" id="search" name="查询" required="false" value="true">
-              <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
-              <dync:children/>
-              <dync:onChange>
-                <template:case value="true">
-                  <template:hide param="searchType" value="false"/>
-                  <template:hide param="searchSelectUrl" value="false"/>
-                  <template:hide param="searchSelectId" value="false"/>
-                  <template:hide param="searchSelectText" value="false"/>
-                  <template:hide param="searchValue" value="false"/>
-                  <template:hide param="searchSopt" value="false"/>
-                  <template:hide param="searchDefaultvalue" value="false"/>
-                  <template:hide param="searchDataInit" value="false"/>
-                </template:case>
-                <template:case value="false">
-                  <template:hide param="searchType" value="true"/>
-                  <template:hide param="searchSelectUrl" value="true"/>
-                  <template:hide param="searchSelectId" value="true"/>
-                  <template:hide param="searchSelectText" value="true"/>
-                  <template:hide param="searchValue" value="true"/>
-                  <template:hide param="searchSopt" value="true"/>
-                  <template:hide param="searchDefaultvalue" value="true"/>
-                  <template:hide param="searchDataInit" value="true"/>
-                </template:case>
-              </dync:onChange>
             </dync:attribute>
             <dync:attribute default="eq" desc="使用控件默认实现的*查询按钮*事件时，可供查询选择的条件。*查询按钮*在表格控件中启用。" group="查询设置" hidden="false" id="searchSopt" name="查询条件" required="false" value="gt ge lt le">
               <dync:render colSpan="1" height="0" multi="true" name="select">
@@ -270,13 +259,17 @@ lastHeartBeat_customFormatter:function(cellvalue,options,rowObject){
 	}else{
 		return &quot;&lt;span class='label label-danger arrowed-in' title='&quot;+tooltip+&quot;'>离线&lt;/span>&quot;;
 	}
-}
-/*,
+},
+/*
 newField2_click:function($event){
 	var start=$view.start.getValue();
 	var end=$view.end.getValue();
 	
 	$view.list.setParams({filters:{groupOP:'AND',rules:[{field:'lastHeartBeat',op:'gt',data:start},{field:'lastHeartBeat',op:'lt',data:end}]}});
-}
-*/</form:scripts>
+},
+*/
+
+newField_change:function(){
+	$view.list.setParams({group:$params.selectedGroup});
+}</form:scripts>
 </form:Form>

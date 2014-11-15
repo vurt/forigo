@@ -9,7 +9,9 @@
 		  TD_NODE.address ,
 		  TD_NODE.remark ,
 		  TD_NODE.last_heart_beat ,
-		  TD_NODE.reg_time 
+		  TD_NODE.reg_time ,
+		  TD_NODE.device_id ,
+		  TD_NODE.app_version 
 </sql>
 
 <!-- ElementID:whereClause_sql,Generated=true -->
@@ -21,6 +23,8 @@
 	    <if test="remark != null">and TD_NODE.remark = #{remark}</if>
 	    <if test="lastHeartBeat != null">and TD_NODE.last_heart_beat = #{lastHeartBeat}</if>
 	    <if test="regTime != null">and TD_NODE.reg_time = #{regTime}</if>
+	    <if test="deviceId != null">and TD_NODE.device_id = #{deviceId}</if>
+	    <if test="appVersion != null">and TD_NODE.app_version = #{appVersion}</if>
 </sql>
 
 
@@ -34,6 +38,8 @@
 	        <if test="remark != null">,remark</if>
 	        <if test="lastHeartBeat != null">,last_heart_beat</if>
 	        <if test="regTime != null">,reg_time</if>
+	        <if test="deviceId != null">,device_id</if>
+	        <if test="appVersion != null">,app_version</if>
 		)
 	 values (
 	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
@@ -43,6 +49,8 @@
 	         <if test="remark != null">,#{remark,jdbcType=VARCHAR}</if>
 	         <if test="lastHeartBeat != null">,#{lastHeartBeat,jdbcType=TIMESTAMP}</if>
 	         <if test="regTime != null">,#{regTime,jdbcType=TIMESTAMP}</if>
+	         <if test="deviceId != null">,#{deviceId,jdbcType=VARCHAR}</if>
+	         <if test="appVersion != null">,#{appVersion,jdbcType=VARCHAR}</if>
 	 )
 </insert>
 
@@ -64,7 +72,9 @@
 	<if test="address != null">address=#{address,jdbcType=VARCHAR},</if>
 	<if test="remark != null">remark=#{remark,jdbcType=VARCHAR},</if>
 	<if test="lastHeartBeat != null">last_heart_beat=#{lastHeartBeat,jdbcType=TIMESTAMP},</if>
-	<if test="regTime != null">reg_time=#{regTime,jdbcType=TIMESTAMP}</if>
+	<if test="regTime != null">reg_time=#{regTime,jdbcType=TIMESTAMP},</if>
+	<if test="deviceId != null">device_id=#{deviceId,jdbcType=VARCHAR},</if>
+	<if test="appVersion != null">app_version=#{appVersion,jdbcType=VARCHAR}</if>
 </set>
 <where>
 	<choose>
@@ -101,12 +111,14 @@ where 1=1 and id_ = #{id}
 	<result property="remark" column="remark"/>
 	<result property="lastHeartBeat" column="last_heart_beat"/>
 	<result property="regTime" column="reg_time"/>
+	<result property="deviceId" column="device_id"/>
+	<result property="appVersion" column="app_version"/>
 </resultMap>
 
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into TD_NODE (id_,group_,position,address,remark,last_heart_beat,reg_time) 
+	insert into TD_NODE (id_,group_,position,address,remark,last_heart_beat,reg_time,device_id,app_version) 
 <foreach collection="list" item="entity" index="index" separator="union all">
 		select 
 		#{entity.id,jdbcType = VARCHAR},
@@ -115,7 +127,9 @@ where 1=1 and id_ = #{id}
 		#{entity.address,jdbcType = VARCHAR},
 		#{entity.remark,jdbcType = VARCHAR},
 		#{entity.lastHeartBeat,jdbcType = TIMESTAMP},
-		#{entity.regTime,jdbcType = TIMESTAMP}
+		#{entity.regTime,jdbcType = TIMESTAMP},
+		#{entity.deviceId,jdbcType = VARCHAR},
+		#{entity.appVersion,jdbcType = VARCHAR}
 		from dual
 </foreach>
 </insert>
@@ -140,7 +154,9 @@ where 1=1 and id_ = #{id}
 	<if test="entity.address != null">address= #{entity.address,jdbcType=VARCHAR},</if>
 	<if test="entity.remark != null">remark= #{entity.remark,jdbcType=VARCHAR},</if>
 	<if test="entity.lastHeartBeat != null">lastHeartBeat= #{entity.lastHeartBeat,jdbcType=TIMESTAMP},</if>
-	<if test="entity.regTime != null">regTime= #{entity.regTime,jdbcType=TIMESTAMP}</if>
+	<if test="entity.regTime != null">regTime= #{entity.regTime,jdbcType=TIMESTAMP},</if>
+	<if test="entity.deviceId != null">deviceId= #{entity.deviceId,jdbcType=VARCHAR},</if>
+	<if test="entity.appVersion != null">appVersion= #{entity.appVersion,jdbcType=VARCHAR}</if>
 	</set>
 		<where>
 			<choose>
