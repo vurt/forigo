@@ -5,7 +5,7 @@
            http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 	
 	<!-- 节点心跳监控 -->
-	<bean id="nodeObserver" class="com.vurt.node.server.comunication.NodeObserver">
+	<bean id="nodeObserver" class="com.vurt.node.server.comunication.HeartBeatObserver">
 	</bean>
 
 </beans>

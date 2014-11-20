@@ -1,14 +1,14 @@
 package com.vurt.node.agent;
 
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.File;
 
-import com.chinacreator.c2.config.ConfigManager;
+import org.apache.commons.lang.StringUtils;
+
 import com.vurt.node.agent.comunication.Constants;
+import com.vurt.node.agent.util.ConfigManager;
+import com.vurt.node.agent.util.JarUtil;
 
 public class NodeAgent {
-	private static final Logger LOGGER=LoggerFactory.getLogger(NodeAgent.class);
 	
 	private static String nodeId;
 	
@@ -23,7 +23,7 @@ public class NodeAgent {
 	public static final void init(){
 		   nodeId = ConfigManager.getInstance().getConfig("node.id");
            if(StringUtils.isEmpty(nodeId)){
-        	   LOGGER.error("节点id为空，节点代理无法正常工作");
+        	   System.err.println("节点id为空，节点代理无法正常工作");
         	   return;
            }
           
