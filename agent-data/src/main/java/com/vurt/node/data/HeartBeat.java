@@ -1,7 +1,7 @@
 package com.vurt.node.data;
 
 public class HeartBeat {
-    private boolean firstHearBeat;
+    private boolean firstHeartBeat;
 
     /**
      * 节点id
@@ -26,9 +26,9 @@ public class HeartBeat {
         this.id = id;
     }
 
-    public HeartBeat(boolean firstHearBeat, String id) {
+    public HeartBeat(boolean firstHeartBeat, String id) {
         this.id = id;
-        this.firstHearBeat = firstHearBeat;
+        this.firstHeartBeat = firstHeartBeat;
     }
 
     public String getId() {
@@ -55,7 +55,7 @@ public class HeartBeat {
         this.position = position;
     }
 
-    public boolean isFirstHearBeat() {
-        return firstHearBeat;
+    public boolean isFirstHeartBeat() {
+        return firstHeartBeat;
     }
 }
