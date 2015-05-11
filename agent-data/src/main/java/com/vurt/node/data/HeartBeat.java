@@ -58,4 +58,8 @@ public class HeartBeat {
     public boolean isFirstHeartBeat() {
         return firstHeartBeat;
     }
+
+    public void setFirstHeartBeat(boolean firstHeartBeat) {
+        this.firstHeartBeat = firstHeartBeat;
+    }
 }
