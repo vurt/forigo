@@ -1,11 +1,9 @@
-package com.vurt.node.agent.file;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+package com.vurt.syncthing;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.vurt.syncthing.SyncthingClient;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class FileSyncThread extends Thread {
 

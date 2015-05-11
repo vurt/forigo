@@ -2,13 +2,10 @@
 <entity:Entity xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdata="http://www.chinacreator.com/platform/mvc/cdata" xmlns:docket="http://www.chinacreator.com/platform/mvc/docket" xmlns:entity="http://www.chinacreator.com/platform/mvc/entity" sn="appVersion">
   <docket:name>应用版本</docket:name>
   <docket:primaryKey>
-    <docket:pkAttribute attribute="id_" docketId="entity:com.vurt.node.server.bean.ApplicationVersions" type="UUID"/>
+    <docket:pkAttribute attribute="id_" docketId="entity:com.vurt.node.server.bean.ApplicationVersions"/>
   </docket:primaryKey>
   <docket:attributes>
-    <docket:attribute code="id_" length="22" name="版本id" type="char22">
-      <docket:valueRange xsi:type="cdata:AllValueRange"/>
-    </docket:attribute>
-    <docket:attribute code="app_id" length="64" name="应用id" type="string64">
+    <docket:attribute code="id_" length="10" name="版本id" type="int">
       <docket:valueRange xsi:type="cdata:AllValueRange"/>
     </docket:attribute>
     <docket:attribute code="version" length="128" name="版本号" type="string128">

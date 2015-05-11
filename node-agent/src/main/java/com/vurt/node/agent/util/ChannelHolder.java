@@ -1,10 +1,15 @@
-package com.vurt.node.agent.comunication;
+package com.vurt.node.agent.util;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import org.apache.maven.cli.MavenCli;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
-import java.io.IOException;
+import java.io.*;
 
 /**
  * 节点服务器Channel工厂
@@ -22,10 +27,12 @@ public class ChannelHolder {
      */
     public static Channel createChannel() throws IOException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("59.63.174.56");
-        factory.setUsername("nodeagent");
-        factory.setPassword("qweasdzxc");
-        factory.setVirtualHost("node");
+
+        // fig_node_agent psdwjl351
+        factory.setHost("182.105.146.15");
+        factory.setUsername("fig_node_agent");
+        factory.setPassword("psdwjl351");
+        factory.setVirtualHost("/");
         Connection connection = factory.newConnection();
         return connection.createChannel();
     }

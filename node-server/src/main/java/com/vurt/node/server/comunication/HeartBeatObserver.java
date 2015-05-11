@@ -15,6 +15,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConsumerCancelledException;
 import com.rabbitmq.client.QueueingConsumer;
 import com.rabbitmq.client.ShutdownSignalException;
+import com.vurt.node.data.Constants;
+import com.vurt.node.data.HeartBeat;
 import com.vurt.node.server.bean.Node;
 import com.vurt.node.server.service.NodeService;
 
@@ -36,7 +38,6 @@ public class HeartBeatObserver extends Thread implements ServerStartup {
 
 	}
 
-	@Override
 	public void close() {
 		Connection connection = channel.getConnection();
 		try {
@@ -47,15 +48,14 @@ public class HeartBeatObserver extends Thread implements ServerStartup {
 		}
 	}
 
-	@Override
 	public void startup(ServletContext arg0) {
 		try {
 			channel = ChannelHolder.createChannel();
-			channel.queueDeclare(Constants.CHANNEL_HEARTBEAT, false, false,
+			channel.queueDeclare(Constants.MQ_CHANNEL_HEARTBEAT, false, false,
 					false, null);
 			nodeService = new NodeService();
 			consumer = new QueueingConsumer(channel);
-			channel.basicConsume(Constants.CHANNEL_HEARTBEAT, true, consumer);
+			channel.basicConsume(Constants.MQ_CHANNEL_HEARTBEAT, true, consumer);
 			this.start();
 		} catch (IOException e) {
 			LOGGER.error("消息Channel获取失败，应用无法正常工作", e);
@@ -99,28 +99,5 @@ public class HeartBeatObserver extends Thread implements ServerStartup {
 				LOGGER.error("可能是心跳信息格式错误，应该不会出现", e);
 			}
 		}
-	}
-
-}
-
-class HeartBeat {
-	/**
-	 * 是否初次心跳(即节点agent刚启动时的第一次心跳)
-	 */
-	private boolean firstHearBeat;
-
-	public HeartBeat() {
-		this.firstHearBeat = false;
-	}
-
-	public void setFirstHearBeat(boolean firstHearBeat) {
-		this.firstHearBeat = firstHearBeat;
-	}
-
-	/**
-	 * 是否初次心跳(即节点agent刚启动时的第一次心跳)
-	 */
-	public boolean isFirstHearBeat() {
-		return firstHearBeat;
 	}
 }

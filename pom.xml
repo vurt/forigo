@@ -10,7 +10,12 @@
     <packaging>pom</packaging>
 
     <name>forigo</name>
-
+    <modules>
+        <module>node-agent</module>
+        <module>node-server</module>
+        <module>syncthing-client</module>
+        <module>agent-data</module>
+    </modules>
 
 
     <dependencies>

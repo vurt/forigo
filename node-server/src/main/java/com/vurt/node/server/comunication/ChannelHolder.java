@@ -17,10 +17,10 @@ public class ChannelHolder {
      */
     public static Channel createChannel() throws IOException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("59.63.174.56");
-        factory.setUsername("nodeagent");
-        factory.setPassword("qweasdzxc");
-        factory.setVirtualHost("node");
+        factory.setHost("182.105.146.15");
+        factory.setUsername("fig_node_agent");
+        factory.setPassword("psdwjl351");
+        factory.setVirtualHost("/");
         Connection connection = factory.newConnection();
         return connection.createChannel();
     }
