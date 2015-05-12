@@ -29,4 +29,13 @@ public interface Constants {
      * 文件分发Exchange
      */
     String MQ_EXCHANGE_APPLICATION = "application";
+
+    String NONE_GROUP_NAME = "_none_";
+
+    String MQ_CONFIG_HOST = "mq.host";
+
+    String MQ_CONFIG_USER_NAME = "mq.username";
+
+    String MQ_CONFIG_PASSWORD = "mqpassword";
+
 }
