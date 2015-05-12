@@ -1,5 +1,7 @@
 package com.vurt.node.data;
 
+import org.apache.maven.model.Model;
+
 public class HeartBeat {
     private boolean firstHeartBeat;
 
@@ -17,6 +19,8 @@ public class HeartBeat {
      * 节点地址
      */
     private String address;
+
+    private String application;
 
     public HeartBeat() {
 
@@ -61,5 +65,13 @@ public class HeartBeat {
 
     public void setFirstHeartBeat(boolean firstHeartBeat) {
         this.firstHeartBeat = firstHeartBeat;
+    }
+
+    public String getApplication() {
+        return application;
+    }
+
+    public void setApplication(String application) {
+        this.application = application;
     }
 }
