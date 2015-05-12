@@ -22,11 +22,10 @@ import static org.quartz.TriggerBuilder.newTrigger;
  * @author Vurt
  */
 public class HeartBeatJob implements Job {
+
     private Channel channel;
 
     private Scheduler scheduler;
-
-    private String id;
 
     public void stop() {
         Connection connection = channel.getConnection();
@@ -48,13 +47,11 @@ public class HeartBeatJob implements Job {
             channel.queueDeclare(Constants.MQ_CHANNEL_HEARTBEAT, false, false,
                     false, null);
 
-            id = ConfigManager.getInstance().getConfig(Constants.NODE_ID);
-
-            HeartBeat heartBeat = new HeartBeat(true, id);
-            heartBeat.setAddress(ConfigManager.getInstance().getConfig(Constants.NODE_ADDRESS));
-            heartBeat.setPosition(ConfigManager.getInstance().getConfig(Constants.NODE_POSITION));
+            HeartBeat heartBeat = new HeartBeatBuilder().firstHeartBeat().appendApplicationInfo().build();
             //启动时先发送一次心跳
             channel.basicPublish("", Constants.MQ_CHANNEL_HEARTBEAT, null, JSON.toJSONBytes(heartBeat));
+            System.out.println("发送心跳信息：" + JSON.toJSON(heartBeat));
+
 
             scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
@@ -66,10 +63,8 @@ public class HeartBeatJob implements Job {
 
             Trigger trigger = newTrigger()
                     .withIdentity("heartBeatTrigger", "defaultGroup")
-                    .startNow()
-                    .withSchedule(simpleSchedule().withIntervalInMinutes(1)
-                            .repeatForever())
-                    .build();
+                    .withSchedule(simpleSchedule().withIntervalInMinutes(1).repeatForever())
+                    .startNow().build();
 
             scheduler.scheduleJob(job, trigger);
         } catch (IOException e) {
@@ -82,7 +77,8 @@ public class HeartBeatJob implements Job {
     public void execute(JobExecutionContext ctx) throws JobExecutionException {
         try {
             Channel channel = (Channel) ctx.getJobDetail().getJobDataMap().get("channel");
-            channel.basicPublish("", Constants.MQ_CHANNEL_HEARTBEAT, null, JSON.toJSONBytes(new HeartBeat(id)));
+            HeartBeat heartBeat = new HeartBeatBuilder().appendApplicationInfo().build();
+            channel.basicPublish("", Constants.MQ_CHANNEL_HEARTBEAT, null, JSON.toJSONBytes(heartBeat));
         } catch (IOException e) {
         }
     }

@@ -1,16 +1,16 @@
 package com.vurt.node.agent;
 
-import com.vurt.node.agent.application.AssembleThread;
+import com.vurt.node.agent.command.CommandThread;
 import com.vurt.node.agent.heartbeat.HeartBeatJob;
 
 public class ShutdownHook extends Thread {
 
-    private AssembleThread appAssembleThread;
+    private CommandThread appAssembleThread;
 
     private HeartBeatJob heartBeatJob;
 
 
-    public ShutdownHook(AssembleThread assembleThread, HeartBeatJob heartBeatJob) {
+    public ShutdownHook(CommandThread assembleThread, HeartBeatJob heartBeatJob) {
         this.appAssembleThread = assembleThread;
         this.heartBeatJob = heartBeatJob;
     }
@@ -19,7 +19,7 @@ public class ShutdownHook extends Thread {
     @Override
     public void run() {
         if (appAssembleThread != null)
-            appAssembleThread.stopAssembleThread();
+            appAssembleThread.stopThread();
         if (heartBeatJob != null)
             heartBeatJob.stop();
     }
