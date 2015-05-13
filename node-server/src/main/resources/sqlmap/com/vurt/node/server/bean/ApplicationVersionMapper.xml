@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.vurt.node.server.bean.ApplicationVersionMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  TD_APP_VERSION.id ,
+		  TD_APP_VERSION.desc ,
+		  TD_APP_VERSION.version ,
+		  TD_APP_VERSION.pom 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="id != null">and TD_APP_VERSION.id = #{id}</if>
+	    <if test="desc != null">and TD_APP_VERSION.desc = #{desc}</if>
+	    <if test="version != null">and TD_APP_VERSION.version = #{version}</if>
+	    <if test="pom != null">and TD_APP_VERSION.pom = #{pom}</if>
+</sql>
+
+
+<!-- ElementID:ApplicationVersionResult,Generated=true -->
+<resultMap id="ApplicationVersionResult" type="com.vurt.node.server.bean.ApplicationVersion">
+	<id property="id" column="id"/>
+	<result property="desc" column="desc"/>
+	<result property="version" column="version"/>
+	<result property="pom" column="pom"/>
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.vurt.node.server.bean.ApplicationVersion" resultType="int">
+	select count(*) from TD_APP_VERSION 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.vurt.node.server.bean.ApplicationVersion">
+	update TD_APP_VERSION
+<set>
+	<if test="desc != null">desc=#{desc,jdbcType=VARCHAR},</if>
+	<if test="version != null">version=#{version,jdbcType=VARCHAR},</if>
+	<if test="pom != null">pom=#{pom,jdbcType=VARCHAR}</if>
+</set>
+<where>
+	<choose>
+        <when test="id != null">and id = #{id}</when>
+        <otherwise>and id = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.vurt.node.server.bean.ApplicationVersion">
+    delete from TD_APP_VERSION where 1=1 and id = #{id}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.vurt.node.server.bean.ApplicationVersion" resultMap="ApplicationVersionResult">
+	select 
+		<include refid="column_sql"/>
+	    from TD_APP_VERSION 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from TD_APP_VERSION where id in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.id}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="com.vurt.node.server.bean.ApplicationVersion">
+	<foreach collection="list" item="entity" separator=";">
+			update TD_APP_VERSION
+	<set>
+	<if test="entity.desc != null">desc= #{entity.desc,jdbcType=VARCHAR},</if>
+	<if test="entity.version != null">version= #{entity.version,jdbcType=VARCHAR},</if>
+	<if test="entity.pom != null">pom= #{entity.pom,jdbcType=VARCHAR}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="id != null">and id = #{id}</when>
+				<otherwise>and id = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="ApplicationVersionResult">
+	select 
+		<include refid="column_sql"/>
+	    from TD_APP_VERSION 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.Integer" resultMap="ApplicationVersionResult">
+	select 
+		<include refid="column_sql"/>
+	    from TD_APP_VERSION 
+		 where TD_APP_VERSION.id = #{id,jdbcType=NUMERIC}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.vurt.node.server.bean.ApplicationVersion" resultMap="ApplicationVersionResult">
+	select 
+		<include refid="column_sql"/>
+	    from TD_APP_VERSION 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="ApplicationVersionResult">
+select 
+	<include refid="column_sql"/> 
+	from TD_APP_VERSION 
+	where TD_APP_VERSION.id in (
+		select distinct id from TD_APP_VERSION inner join
+<foreach collection="list" item="entity" separator="inner join">
+		(select 
+			distinct id
+			from TD_APP_VERSION 
+			<where>
+	        <if test="entity.id != null">and TD_APP_VERSION.id = #{entity.id}</if>
+	        <if test="entity.desc != null">and TD_APP_VERSION.desc = #{entity.desc}</if>
+	        <if test="entity.version != null">and TD_APP_VERSION.version = #{entity.version}</if>
+	        <if test="entity.pom != null">and TD_APP_VERSION.pom = #{entity.pom}</if>
+			</where>
+		) ${entity.tableAlias} using (id)
+</foreach>
+)
+</select>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.vurt.node.server.bean.ApplicationVersion" useGeneratedKeys="true">
+	<selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+         select LAST_INSERT_ID()
+    </selectKey>
+insert into TD_APP_VERSION(
+		<trim prefixOverrides=",">
+		    <if test="desc != null">desc</if>
+		    <if test="version != null">,version</if>
+		    <if test="pom != null">,pom</if>
+		</trim>
+	 )
+	 values (
+		<trim prefixOverrides=",">
+		    <if test="desc != null">#{desc,jdbcType=VARCHAR}</if>
+		    <if test="version != null">,#{version,jdbcType=VARCHAR}</if>
+		    <if test="pom != null">,#{pom,jdbcType=VARCHAR}</if>
+        </trim>
+	 )
+</insert>
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list" useGeneratedKeys="true">
+	insert into TD_APP_VERSION (desc,version,pom)
+			values 
+			<foreach collection="list" item="entity" index="index" separator=",">
+				(
+		         #{entity.desc,jdbcType = VARCHAR},
+		         #{entity.version,jdbcType = VARCHAR},
+		         #{entity.pom,jdbcType = VARCHAR}
+				)
+</foreach>
+</insert>
+</mapper>

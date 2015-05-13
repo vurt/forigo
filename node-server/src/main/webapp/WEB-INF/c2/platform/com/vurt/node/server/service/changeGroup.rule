@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="node/changeGroup" log="false" className="com.vurt.node.server.comunication.CommandService" method="changeNodeGroup">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>修改节点分组信息</name>
+  <desc>修改节点的分组</desc>
+  <inputs>
+    <input collection="false" desc="要修改的节点" id="nodes" name="要修改的节点" required="true" type="[Lcom.vurt.node.server.bean.Node;"/>
+    <input collection="false" desc="新分组" id="group" name="新的分组" required="true" type="String"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.nodes" name="nodes" signature="[QNode;" type="[Lcom.vurt.node.server.bean.Node;"/>
+    <param autoValue="Input.group" name="group" signature="QString;" type="String"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

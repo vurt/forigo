@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="node/count" log="false" className="com.vurt.node.server.service.NodeService" method="count">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>计算节点个数</name>
+  <inputs>
+    <input collection="false" desc="" id="groups" name="分组" required="true" type="[LString;"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.groups" name="groups" signature="[QString;" type="[LString;"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

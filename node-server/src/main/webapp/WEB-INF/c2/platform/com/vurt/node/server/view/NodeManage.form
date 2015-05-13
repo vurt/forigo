@@ -22,7 +22,7 @@
         <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
         <dync:children/>
       </dync:attribute>
-      <dync:attribute default="" desc="数据源加载前" group="事件" hidden="false" id="beforeDataSourceLoad" name="数据源加载前" required="false" value="">
+      <dync:attribute default="" desc="数据源加载前" group="事件" hidden="false" id="beforeDataSourceLoad" name="数据源加载前" required="false" value="page_beforeDataSourceLoad($params)">
         <dync:render colSpan="2" height="0" multi="false" name="event">
           <dync:item name="param" value="$params"/>
         </dync:render>
@@ -36,35 +36,106 @@
       </dync:attribute>
     </form:attributes>
   </form:control>
-  <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+  <form:child xsi:type="form:Group" id="searchBlock" name="简单容器(DIV)">
     <form:control type="container/div">
       <form:attributes source="container/div">
         <dync:attribute default="false" desc="内部是否有边距" group="HTML配置" hidden="false" id="nopadding" name="无内边距" required="false" value="true">
           <dync:render colSpan="2" height="0" multi="false" name="checkbox"/>
           <dync:children/>
         </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="border-bottom:1px dotted #CCC;">
+          <dync:children/>
+        </dync:attribute>
       </form:attributes>
     </form:control>
-    <form:child xsi:type="form:Field" binding="$params.selectedGroup" id="newField" name="按分组过滤" customize="true">
-      <form:control type="widget/select_simple">
-        <form:attributes source="widget/select_simple">
-          <dync:attribute default="" desc="设置下拉框的可选项。有两种设置形式：  &#xA;                1.使用JSON对象的格式。如：{&quot;key&quot;:&quot;value&quot;,&quot;xx&quot;:&quot;xxx&quot;}或者[{&quot;id&quot;:&quot;xx&quot;,&quot;name&quot;:&quot;xxx&quot;,&quot;selected&quot;,true,&quot;type&quot;:&quot;1&quot;},{&quot;id&quot;:&quot;xx2&quot;,&quot;name&quot;:&quot;xxx2&quot;},&quot;type&quot;:&quot;2&quot;]。  &#xA;                2.使用数据源（逻辑数据源），数据源可以返回列表或者Map对象。如：$model.dataSourseName.result  &#xA;                &#xA;                @attention 数据源的返回结果会自动转为JSON格式的对象(Map&lt;String,String>)或者数组(List&lt;Object>)。  &#xA;                &#x9;当选项的JSON值是对象时（Object），key和value会自动作为下拉选项的值和显示名称。    &#xA;                &#x9;如果选项的JSON值是数组，则必须填写值属性名，显示属性名。" group="下拉框设置" hidden="false" id="selectOptions" name="选项" required="false" value="$model.queryGroups.groups">
-            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+    <form:child xsi:type="form:Field" binding="$params.filter.groups" id="groupsTree" name="" customize="true">
+      <form:control type="widget/select_tree">
+        <form:attributes source="widget/select_tree">
+          <dync:attribute default="" group="树数据设置" id="treeBinding" name="树数据源" value="$model.groups">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" desc="需要选择空值的选项" group="下拉框设置" hidden="false" id="nullValue" name="空值选项" required="false" value="-- 所有分组 --">
-            <dync:render colSpan="1" height="0" multi="false" name="text"/>
+          <dync:attribute default="false" group="树显示设置" id="multiSelect" name="多选模式" value="true">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="" desc="下拉框值变换事件" group="事件设置" hidden="false" id="change" name="值变换事件" required="false" value="newField_change()">
-            <dync:render colSpan="2" height="0" multi="false" name="event">
-              <dync:item name="params" value=""/>
-            </dync:render>
+          <dync:attribute default="true" group="树数据设置" id="simpleDataEnable" name="简单数据模式" value="false">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="name" group="树数据设置" id="nodeName" name="名称属性" value="display">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="树显示设置" id="nameIsHtml" name="支持HTML" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="6" group="控件外观" id="span" name="占位数" value="10">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="未选中数据 ..." group="控件外观" id="placeholder" name="占位字符串" value=" 终端分组...">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="控件外观" id="lableWidth" name="lable宽度" value="-10">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="树事件设置" id="nodeClick" name="单击" value="groupsTree_nodeClick(event,treeId,treeNode,clickFlag)">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
       </form:control>
       <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+      <form:control type="container/div">
+        <form:attributes source="container/div">
+          <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="2">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="pull-right">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="margin-right:20px;">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:child xsi:type="form:Field" id="manageGroupVersion" name="修改应用版本" customize="true">
+        <form:control type="widget/button">
+          <form:attributes source="widget/button">
+            <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="manageGroupVersion_click($event)">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-sm" group="HTML设置" id="size" name="尺寸" value="btn-nl">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-th-large">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white no-border">
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+        <form:validation/>
+      </form:child>
     </form:child>
   </form:child>
   <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
@@ -78,13 +149,12 @@
             <dync:render colSpan="1" height="0" multi="false" name="text"/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="false" group="工具栏" id="pageToolbar" name="分页工具栏" value="true">
-            <dync:children/>
-          </dync:attribute>
           <dync:attribute default="false" group="工具栏" id="pageToolbarText" name="分页工具栏文字" value="true">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
-          <dync:attribute default="true" group="工具栏" id="topToolbar" name="顶部工具栏" value="false">
+          <dync:attribute default="" group="基本配置" id="caption" name="表头" value="节点列表">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -93,16 +163,38 @@
         <form:control type="container/toolbar_table">
           <form:attributes source="container/toolbar_table"/>
         </form:control>
+        <form:child xsi:type="form:Field" id="assginGroup" name="分配分组" customize="true">
+          <form:control type="widget/button_a_table">
+            <form:attributes source="widget/button_a_table">
+              <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-location-arrow">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+              <dync:attribute default="" group="事件设置" id="click" name="单击事件" value="assginGroup_click(rowId,rowData,tableData)">
+                <dync:render/>
+                <dync:children/>
+              </dync:attribute>
+            </form:attributes>
+          </form:control>
+          <form:validation/>
+        </form:child>
         <form:child xsi:type="form:Field" id="newField1" name="刷新" customize="true">
           <form:control type="widget/button_a_table">
             <form:attributes source="widget/button_a_table">
               <dync:attribute default="custom" group="事件设置" id="clickType" name="事件类型" value="refrash">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-refresh">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
               <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="green">
+                <dync:render/>
                 <dync:children/>
               </dync:attribute>
             </form:attributes>
@@ -126,6 +218,21 @@
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+          </form:attributes>
+        </form:control>
+      </form:child>
+      <form:child xsi:type="form:Field" binding="group" id="group" name="分组">
+        <form:control type="widget/col_jqgrid">
+          <form:attributes source="widget/col_jqgrid">
+            <dync:attribute default="" group="基本设置" id="width" name="宽度" value="180px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="fixed" name="宽度固定" value="true">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -134,23 +241,14 @@
       <form:child xsi:type="form:Field" binding="position" id="position" name="位置">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
-            <dync:attribute default="" desc="列的宽度;如果固定宽度为false,这列的实际宽度按占表格的百分比计算出来" group="基本设置" hidden="false" id="width" name="宽度" required="false" value="140">
-              <dync:render colSpan="1" height="0" multi="false" name="text"/>
-              <dync:children/>
-            </dync:attribute>
-            <dync:attribute default="false" desc="将列的定义宽度作为实际展现的宽度。" group="基本设置" hidden="false" id="fixed" name="宽度固定" required="false" value="true">
-              <dync:render colSpan="1" height="0" multi="false" name="checkbox"/>
+            <dync:attribute default="" group="格式设置" id="customFormatter" name="自定义格式" value="position_customFormatter(cellvalue,options,rowObject)">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
         </form:control>
       </form:child>
-      <form:child xsi:type="form:Field" binding="address" id="address" name="地址">
-        <form:control type="widget/col_jqgrid">
-          <form:attributes source="widget/col_jqgrid"/>
-        </form:control>
-      </form:child>
-      <form:child xsi:type="form:Field" binding="lastHeartBeat" id="lastHeartBeat" name="状态&amp;操作">
+      <form:child xsi:type="form:Field" binding="lastHeartBeat" id="lastHeartBeat" name="状态">
         <form:control type="widget/col_jqgrid">
           <form:attributes source="widget/col_jqgrid">
             <dync:attribute default="" desc="将替换掉预定格式；可参考[jqGrid自定义格式](http://www.trirand.com/jqgridwiki/doku.php?id=wiki:custom_formatter)。&#xA;&#x9;&#x9;&#x9;@param cellvalue[String] 单元格值。&#xA;&#x9;&#x9;&#x9;@param options[JSON] 表格列选项。&#xA;&#x9;&#x9;&#x9;@param rowObject[JSON] 行数据。&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;@code&#xA;&#x9;&#x9;&#x9;newField8_customFormatter:function (cellvalue, options, rowObject){&#xA;&#x9;&#x9;&#x9;&#x9;return cellvalue+&quot;显示什么我说的算!!&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;//如果想写自定义按钮事件，可以在&quot;页面js&quot;内写下自己的脚本方法，然后通过ng-click来实现：&#xA;&#x9;&#x9;&#x9;newField5_customFormatter:function(cellvalue,options,rowObject){&#xA;&#x9;&#x9;&#x9;&#x9;return '&lt;button ng-click=functions.myClick(&quot;'+cellvalue+'&quot;)>&lt;i class=&quot;ace-icon fa fa-meh-o&quot;>&lt;/i>&lt;/button>';&#xA;&#x9;&#x9;&#x9;&#x9;//不调用其他方法，也可以用onClick&#xA;&#x9;&#x9;&#x9;&#x9;//return '&lt;button onClick=alert(&quot;hohoHa'+cellvalue+'&quot;)>&lt;i class=&quot;ace-icon fa fa-meh-o&quot;>&lt;/i>&lt;/button>';&#xA;&#x9;&#x9;&#x9;},&#xA;&#x9;&#x9;&#x9;myClick:function(value){&#xA;&#x9;&#x9;&#x9;&#x9;alert(&quot;我的点击事件：&quot;+value);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;@code&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;@attention 通过自己手写HTML代码事件调用&quot;页面js&quot;的方法时必须加上`functions.`的前缀。  &#xA;&#x9;&#x9;&#x9;通过html内置的事件(onClick)是不能够调用到&quot;页面js&quot;上的方法的,只能通过Angular内置的指令事件(ng-click)调用。  &#xA;&#x9;&#x9;&#x9;当然，如果你不需要调用到&quot;页面js&quot;的方法，还是可以用`onClick`事件的，如：`onClick=alert(&quot;hahaho'+cellvalue+'&quot;)`" group="格式设置" hidden="false" id="customFormatter" name="自定义格式" required="false" value="lastHeartBeat_customFormatter(cellvalue,options,rowObject)">
@@ -178,6 +276,18 @@
               </dync:render>
               <dync:children/>
             </dync:attribute>
+            <dync:attribute default="" group="基本设置" id="width" name="宽度" value="160px">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="基本设置" id="fixed" name="宽度固定" value="true">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="left" group="基本设置" id="align" name="位置" value="center">
+              <dync:render/>
+              <dync:children/>
+            </dync:attribute>
           </form:attributes>
         </form:control>
       </form:child>
@@ -186,30 +296,89 @@
   <form:datasources>
     <form:datasource xsi:type="form:Inputs"/>
     <form:datasource xsi:type="form:PagingDataSource" id="list" name="列表型数据源" elementType="entity:com.vurt.node.server.bean.Node" pageSize="10"/>
-    <form:datasource xsi:type="form:LogicDataSource" id="queryGroups" name="查询分组详情" logic="rule:com.vurt.node.server.service.getGroups" sn="groups"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="appVersions" name="应用版本" logic="rule:com.vurt.node.server.service.getAppVersions" sn="appVersions"/>
+    <form:datasource xsi:type="form:TreeDataSource" id="groups" name="树型数据源" impl="com.vurt.node.server.ds.GroupTreeContentProvider" type="custom"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="groupVersions" name="分组和应用版本对应关系" logic="rule:com.vurt.node.server.service.getGroupVersions" sn="node/getGroupVersions"/>
   </form:datasources>
-  <form:scripts>
-
-lastHeartBeat_customFormatter:function(cellvalue,options,rowObject){
+  <form:scripts>lastHeartBeat_customFormatter:function(cellvalue,options,rowObject){
 	var lastHeartBeat=moment(cellvalue);
 	var tooltip=&quot;最后心跳时间：&quot;+lastHeartBeat.format('YYYY-MM-DD, hh:mm:ss');
+	var html;
 	if(moment().isBefore(lastHeartBeat.add(1,'m'))){
 		//最后一次心跳时间与当前时间的间隔小于一分钟
-		return &quot;&lt;span class='label label-success arrowed' title='&quot;+tooltip+&quot;'>在线&lt;/span>&quot;;
+		html= &quot;&lt;span class='label label-success arrowed' title='&quot;+tooltip+&quot;'>在线&lt;/span>&quot;;
 	}else{
-		return &quot;&lt;span class='label label-danger arrowed-in' title='&quot;+tooltip+&quot;'>离线&lt;/span>&quot;;
+		html= &quot;&lt;span class='label label-danger arrowed-in' title='&quot;+tooltip+&quot;'>离线&lt;/span>&quot;;
+	}
+	if(angular.isDefined(rowObject.group)){
+		html+=(&quot;  &lt;span class=\&quot;label label-success\&quot; ng-bind=\&quot;$model.groupVersions.result['&quot;+rowObject.group+&quot;']\&quot;>&lt;/span>&quot;);
+	}else{
+		html+=(&quot;  &lt;span class='label label-warning' >未分组&lt;/span>&quot;);
+	}
+	return html;
+},
+
+manageGroupVersion_click:function($event){
+	var targetGroups=[];
+	if(angular.isUndefined($params.filter.groups)){
+		var groups=$view.groupsTree.getTree().getNodes();
+		for(var index in groups){
+			var group=groups[index];
+			targetGroups.push(group.id);
+		}
+	}else{
+		targetGroups=$params.filter.groups.split(&quot;,&quot;);
+	}
+	Modal.open('f/modifyVersion',{groups:targetGroups},function(){
+		$model.groupVersions.$load();
+		$view.groupsTree.getTree().refresh();
+	});
+},
+
+page_beforeDataSourceLoad:function($params){
+	$params.filter={};
+	$scope.$watch(&quot;$params.filter.groups&quot;,function(groups){
+		if(angular.isUndefined(groups) || groups===&quot;&quot;){
+			$view.list.setParams({});
+		}else{
+			var filter={      // 高阶查询的所有条件都在这个里面
+							groupOp: &quot;OR&quot;,  // 连接字
+							rules: [ 
+							        { field:&quot;group&quot;, op: &quot;in&quot;, data: groups },
+							        { field:&quot;group&quot;, op: &quot;cn&quot;, data: groups }
+								   ]
+						};
+			$view.list.setParams({filters:filter});
+		}
+	});
+},
+
+close_click:function(rowId,rowData,tableData){
+	Modal.open('f/restartNode',{groups:$params.filter.groups});
+},
+
+groupsTree_nodeClick:function(event,treeId,treeNode,clickFlag){
+	$view.groupsTree.getTree().checkNode(treeNode,undefined,false,true);
+},
+
+assginGroup_click:function(rowId,rowData,tableData){
+	if($view.list.getSelectRowIds().length==0){
+		Messenger.post({message:&quot;没有选中任何节点!&quot;});
+		return;
+	}else{
+		var nodeids=$view.list.getSelectRowIds();
+		Modal.open('f/modifyGroup',{nodes:nodeids},function(){
+			Messenger.success(&quot;节点分组修改完成&quot;);
+			$view.list.refresh();
+		});
 	}
 },
-/*
-newField2_click:function($event){
-	var start=$view.start.getValue();
-	var end=$view.end.getValue();
-	
-	$view.list.setParams({filters:{groupOP:'AND',rules:[{field:'lastHeartBeat',op:'gt',data:start},{field:'lastHeartBeat',op:'lt',data:end}]}});
-},
-*/
 
-newField_change:function(){
-	$view.list.setParams({group:$params.selectedGroup});
+position_customFormatter:function(cellvalue,options,rowObject){
+	return &quot;&lt;a href='javascript:void(0)' title='&quot;+cellvalue+&quot;'>查看地图&lt;/a>&quot;+&quot;  &quot;+rowObject.address;
 }</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup2_html&quot;>
+	{{$params.filter}}
+&lt;/script></form:htmls>
 </form:Form>

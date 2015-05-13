@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><mapper namespace="com.vurt.node.server.bean.GroupMapper">	
+
+<!-- ElementID:column_sql,Generated=true -->
+<sql id="column_sql">
+		  TD_GROUP.name ,
+		  TD_APP_VERSION.id T1_id ,
+		  TD_APP_VERSION.desc T1_desc ,
+		  TD_APP_VERSION.version T1_version ,
+		  TD_APP_VERSION.pom T1_pom 
+</sql>
+
+<!-- ElementID:whereClause_sql,Generated=true -->
+<sql id="whereClause_sql">
+	    <if test="name != null">and TD_GROUP.name = #{name}</if>
+		<if test="version != null and version.id !=null">and TD_GROUP.version = #{version.id}</if>
+</sql>
+
+<!-- ElementID:one2one_sql,Generated=true -->
+<sql id="one2one_sql">
+	     left outer join TD_APP_VERSION on TD_GROUP.version=TD_APP_VERSION.id
+</sql>
+
+<!-- ElementID:ApplicationVersionResult,Generated=true -->
+<resultMap id="ApplicationVersionResult" type="com.vurt.node.server.bean.ApplicationVersion">
+	<id property="id" column="id"/>
+	<result property="desc" column="desc"/>
+	<result property="version" column="version"/>
+	<result property="pom" column="pom"/>
+</resultMap>
+
+
+<!-- ElementID:GroupResult,Generated=true -->
+<resultMap id="GroupResult" type="com.vurt.node.server.bean.Group">
+	<id property="name" column="name"/>
+	<association property="version" resultMap="ApplicationVersionResult" columnPrefix="T1_"/>	
+</resultMap>
+
+
+<!-- ElementName:cache,Generated=true -->
+<cache/>
+
+<!-- ElementID:insert,Generated=true -->
+<insert id="insert" parameterType="com.vurt.node.server.bean.Group">
+	insert into TD_GROUP(
+	         <if test="name != null">name</if>
+	 	 	 <if test="version != null and version.id !=null">,version</if>
+	 	 )
+	 values (
+	         <if test="name != null">#{name,jdbcType=VARCHAR}</if>
+	 	 	 <if test="version != null and version.id !=null">,#{version.id,jdbcType=NUMERIC}</if>
+	 	 )
+</insert>
+
+<!-- ElementID:count,Generated=true -->
+<select id="count" parameterType="com.vurt.node.server.bean.Group" resultType="int">
+	select count(*) from TD_GROUP 
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:update,Generated=true -->
+<update id="update" parameterType="com.vurt.node.server.bean.Group">
+	update TD_GROUP
+<set>
+	<if test="version != null and version.id !=null">version=#{version.id,jdbcType=NUMERIC}</if>
+</set>
+<where>
+	<choose>
+        <when test="name != null">and name = #{name}</when>
+        <otherwise>and name = </otherwise>
+    </choose>
+</where>
+</update>
+
+<!-- ElementID:delete,Generated=true -->
+<delete id="delete" parameterType="com.vurt.node.server.bean.Group">
+    delete from TD_GROUP where 1=1 and name = #{name}
+</delete>
+
+<!-- ElementID:select,Generated=true -->
+<select id="select" parameterType="com.vurt.node.server.bean.Group" resultMap="GroupResult">
+	select 
+		<include refid="column_sql"/>
+	    from TD_GROUP 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+	order by 
+			name asc
+</select>
+
+
+<!-- ElementID:insertBatch,Generated=true -->
+<insert id="insertBatch" parameterType="list">
+	insert into TD_GROUP (name) 
+<foreach collection="list" item="entity" index="index" separator="union all">
+		select 
+		#{entity.name,jdbcType = VARCHAR}
+		from dual
+</foreach>
+</insert>
+
+<!-- ElementID:deleteBatch,Generated=true -->
+<delete id="deleteBatch" parameterType="List">
+	delete from TD_GROUP where name in
+<trim prefix="(" suffix=")" suffixOverrides=",">
+<foreach collection="list" item="entity" separator=",">
+	#{entity.name}
+</foreach>
+</trim>
+</delete>
+
+<!-- ElementID:updateBatch,Generated=true -->
+<update id="updateBatch" parameterType="com.vurt.node.server.bean.Group">
+	<foreach collection="list" item="entity" separator=";">
+			update TD_GROUP
+	<set>
+	<if test="entity.version != null and entity.version.id !=null">version= #{entity.version.id,jdbcType=NUMERIC}</if>
+	</set>
+		<where>
+			<choose>
+				<when test="name != null">and name = #{name}</when>
+				<otherwise>and name = </otherwise>
+			</choose>
+		</where>
+	</foreach>
+</update>
+
+<!-- ElementID:selectAll,Generated=true -->
+<select id="selectAll" resultMap="GroupResult">
+	select 
+		<include refid="column_sql"/>
+	    from TD_GROUP 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+</select>
+
+<!-- ElementID:selectByID,Generated=true -->
+<select id="selectByID" parameterType="java.lang.String" resultMap="GroupResult">
+	select 
+		<include refid="column_sql"/>
+	    from TD_GROUP 
+		<include refid="one2one_sql"/>
+		 where TD_GROUP.name = #{name,jdbcType=VARCHAR}
+</select>
+
+<!-- ElementID:selectByPage,Generated=true -->
+<select id="selectByPage" parameterType="com.vurt.node.server.bean.Group" resultMap="GroupResult">
+	select 
+		<include refid="column_sql"/>
+	    from TD_GROUP 
+		<include refid="one2one_sql"/>
+		 <where>
+			<include refid="whereClause_sql"/>
+		</where>
+	order by 
+			name asc
+</select>
+
+
+<!-- ElementID:selectMany,Generated=true -->
+<select id="selectMany" parameterType="list" resultMap="GroupResult">
+select 
+	<include refid="column_sql"/> 
+	from TD_GROUP 
+	<include refid="one2one_sql"/>
+	where TD_GROUP.name in (
+		select distinct name from TD_GROUP inner join
+<foreach collection="list" item="entity" separator="inner join">
+		(select 
+			distinct name
+			from TD_GROUP 
+			<where>
+	        <if test="entity.name != null">and TD_GROUP.name = #{entity.name}</if>
+			</where>
+		) ${entity.tableAlias} using (name)
+</foreach>
+)
+</select>
+</mapper>

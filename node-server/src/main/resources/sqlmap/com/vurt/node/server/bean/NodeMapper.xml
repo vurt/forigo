@@ -10,7 +10,6 @@
 		  TD_NODE.remark ,
 		  TD_NODE.last_heart_beat ,
 		  TD_NODE.reg_time ,
-		  TD_NODE.device_id ,
 		  TD_NODE.app_version 
 </sql>
 
@@ -23,7 +22,6 @@
 	    <if test="remark != null">and TD_NODE.remark = #{remark}</if>
 	    <if test="lastHeartBeat != null">and TD_NODE.last_heart_beat = #{lastHeartBeat}</if>
 	    <if test="regTime != null">and TD_NODE.reg_time = #{regTime}</if>
-	    <if test="deviceId != null">and TD_NODE.device_id = #{deviceId}</if>
 	    <if test="appVersion != null">and TD_NODE.app_version = #{appVersion}</if>
 </sql>
 
@@ -31,16 +29,15 @@
 <!-- ElementID:insert,Generated=true -->
 <insert id="insert" parameterType="com.vurt.node.server.bean.Node">
 	insert into TD_NODE(
-	        <if test="id != null">id_</if>
-	        <if test="group != null">,group_</if>
-	        <if test="position != null">,position</if>
-	        <if test="address != null">,address</if>
-	        <if test="remark != null">,remark</if>
-	        <if test="lastHeartBeat != null">,last_heart_beat</if>
-	        <if test="regTime != null">,reg_time</if>
-	        <if test="deviceId != null">,device_id</if>
-	        <if test="appVersion != null">,app_version</if>
-		)
+	         <if test="id != null">id_</if>
+	         <if test="group != null">,group_</if>
+	         <if test="position != null">,position</if>
+	         <if test="address != null">,address</if>
+	         <if test="remark != null">,remark</if>
+	         <if test="lastHeartBeat != null">,last_heart_beat</if>
+	         <if test="regTime != null">,reg_time</if>
+	         <if test="appVersion != null">,app_version</if>
+	 	 	 )
 	 values (
 	         <if test="id != null">#{id,jdbcType=VARCHAR}</if>
 	         <if test="group != null">,#{group,jdbcType=VARCHAR}</if>
@@ -49,17 +46,15 @@
 	         <if test="remark != null">,#{remark,jdbcType=VARCHAR}</if>
 	         <if test="lastHeartBeat != null">,#{lastHeartBeat,jdbcType=TIMESTAMP}</if>
 	         <if test="regTime != null">,#{regTime,jdbcType=TIMESTAMP}</if>
-	         <if test="deviceId != null">,#{deviceId,jdbcType=VARCHAR}</if>
 	         <if test="appVersion != null">,#{appVersion,jdbcType=VARCHAR}</if>
-	 )
+	 	 	 )
 </insert>
 
 <!-- ElementID:count,Generated=true -->
 <select id="count" parameterType="com.vurt.node.server.bean.Node" resultType="int">
-		select count(*)
-	    from TD_NODE 
+	select count(*) from TD_NODE 
 		 <where>
-<include refid="whereClause_sql"/>
+			<include refid="whereClause_sql"/>
 		</where>
 </select>
 
@@ -73,7 +68,6 @@
 	<if test="remark != null">remark=#{remark,jdbcType=VARCHAR},</if>
 	<if test="lastHeartBeat != null">last_heart_beat=#{lastHeartBeat,jdbcType=TIMESTAMP},</if>
 	<if test="regTime != null">reg_time=#{regTime,jdbcType=TIMESTAMP},</if>
-	<if test="deviceId != null">device_id=#{deviceId,jdbcType=VARCHAR},</if>
 	<if test="appVersion != null">app_version=#{appVersion,jdbcType=VARCHAR}</if>
 </set>
 <where>
@@ -86,17 +80,16 @@
 
 <!-- ElementID:delete,Generated=true -->
 <delete id="delete" parameterType="com.vurt.node.server.bean.Node">
-    delete from TD_NODE 
-where 1=1 and id_ = #{id}
+    delete from TD_NODE where 1=1 and id_ = #{id}
 </delete>
 
 <!-- ElementID:select,Generated=true -->
 <select id="select" parameterType="com.vurt.node.server.bean.Node" resultMap="NodeResult">
 	select 
-<include refid="column_sql"/>
+		<include refid="column_sql"/>
 	    from TD_NODE 
 		 <where>
-<include refid="whereClause_sql"/>
+			<include refid="whereClause_sql"/>
 		</where>
 	order by 
 			id_ asc
@@ -111,14 +104,13 @@ where 1=1 and id_ = #{id}
 	<result property="remark" column="remark"/>
 	<result property="lastHeartBeat" column="last_heart_beat"/>
 	<result property="regTime" column="reg_time"/>
-	<result property="deviceId" column="device_id"/>
 	<result property="appVersion" column="app_version"/>
 </resultMap>
 
 
 <!-- ElementID:insertBatch,Generated=true -->
 <insert id="insertBatch" parameterType="list">
-	insert into TD_NODE (id_,group_,position,address,remark,last_heart_beat,reg_time,device_id,app_version) 
+	insert into TD_NODE (id_,group_,position,address,remark,last_heart_beat,reg_time,app_version) 
 <foreach collection="list" item="entity" index="index" separator="union all">
 		select 
 		#{entity.id,jdbcType = VARCHAR},
@@ -128,7 +120,6 @@ where 1=1 and id_ = #{id}
 		#{entity.remark,jdbcType = VARCHAR},
 		#{entity.lastHeartBeat,jdbcType = TIMESTAMP},
 		#{entity.regTime,jdbcType = TIMESTAMP},
-		#{entity.deviceId,jdbcType = VARCHAR},
 		#{entity.appVersion,jdbcType = VARCHAR}
 		from dual
 </foreach>
@@ -149,14 +140,13 @@ where 1=1 and id_ = #{id}
 	<foreach collection="list" item="entity" separator=";">
 			update TD_NODE
 	<set>
-	<if test="entity.group != null">group= #{entity.group,jdbcType=VARCHAR},</if>
+	<if test="entity.group != null">group_= #{entity.group,jdbcType=VARCHAR},</if>
 	<if test="entity.position != null">position= #{entity.position,jdbcType=VARCHAR},</if>
 	<if test="entity.address != null">address= #{entity.address,jdbcType=VARCHAR},</if>
 	<if test="entity.remark != null">remark= #{entity.remark,jdbcType=VARCHAR},</if>
-	<if test="entity.lastHeartBeat != null">lastHeartBeat= #{entity.lastHeartBeat,jdbcType=TIMESTAMP},</if>
-	<if test="entity.regTime != null">regTime= #{entity.regTime,jdbcType=TIMESTAMP},</if>
-	<if test="entity.deviceId != null">deviceId= #{entity.deviceId,jdbcType=VARCHAR},</if>
-	<if test="entity.appVersion != null">appVersion= #{entity.appVersion,jdbcType=VARCHAR}</if>
+	<if test="entity.lastHeartBeat != null">last_heart_beat= #{entity.lastHeartBeat,jdbcType=TIMESTAMP},</if>
+	<if test="entity.regTime != null">reg_time= #{entity.regTime,jdbcType=TIMESTAMP},</if>
+	<if test="entity.appVersion != null">app_version= #{entity.appVersion,jdbcType=VARCHAR}</if>
 	</set>
 		<where>
 			<choose>
@@ -170,10 +160,10 @@ where 1=1 and id_ = #{id}
 <!-- ElementID:selectAll,Generated=true -->
 <select id="selectAll" resultMap="NodeResult">
 	select 
-<include refid="column_sql"/>
+		<include refid="column_sql"/>
 	    from TD_NODE 
 		 <where>
-<include refid="whereClause_sql"/>
+			<include refid="whereClause_sql"/>
 		</where>
 </select>
 
@@ -183,26 +173,40 @@ where 1=1 and id_ = #{id}
 
 
 <!-- ElementID:selectMany,Generated=true -->
-<select id="selectMany" parameterType="com.vurt.node.server.bean.Node" resultMap="NodeResult">
-<foreach collection="list" item="entity" separator="intersect">
-	select 
-<include refid="column_sql"/>
-	    from TD_NODE 
-		 <where>
-<include refid="whereClause_sql"/>
-		</where>
+<select id="selectMany" parameterType="list" resultMap="NodeResult">
+select 
+	<include refid="column_sql"/> 
+	from TD_NODE 
+	where TD_NODE.id_ in (
+		select distinct id_ from TD_NODE inner join
+<foreach collection="list" item="entity" separator="inner join">
+		(select 
+			distinct id_
+			from TD_NODE 
+			<where>
+	        <if test="entity.id != null">and TD_NODE.id_ = #{entity.id}</if>
+	        <if test="entity.group != null">and TD_NODE.group_ = #{entity.group}</if>
+	        <if test="entity.position != null">and TD_NODE.position = #{entity.position}</if>
+	        <if test="entity.address != null">and TD_NODE.address = #{entity.address}</if>
+	        <if test="entity.remark != null">and TD_NODE.remark = #{entity.remark}</if>
+	        <if test="entity.lastHeartBeat != null">and TD_NODE.last_heart_beat = #{entity.lastHeartBeat}</if>
+	        <if test="entity.regTime != null">and TD_NODE.reg_time = #{entity.regTime}</if>
+	        <if test="entity.appVersion != null">and TD_NODE.app_version = #{entity.appVersion}</if>
+			</where>
+		) ${entity.tableAlias} using (id_)
 </foreach>
+)
 </select>
 
 
 
 
 <!-- ElementID:selectByID,Generated=true -->
-<select id="selectByID" parameterType="string" resultMap="NodeResult">
+<select id="selectByID" parameterType="java.lang.String" resultMap="NodeResult">
 	select 
-<include refid="column_sql"/>
+		<include refid="column_sql"/>
 	    from TD_NODE 
-		 where id_ = #{id,jdbcType=VARCHAR}
+		 where TD_NODE.id_ = #{id,jdbcType=VARCHAR}
 </select>
 
 
@@ -211,10 +215,10 @@ where 1=1 and id_ = #{id}
 <!-- ElementID:selectByPage,Generated=true -->
 <select id="selectByPage" parameterType="com.vurt.node.server.bean.Node" resultMap="NodeResult">
 	select 
-<include refid="column_sql"/>
+		<include refid="column_sql"/>
 	    from TD_NODE 
 		 <where>
-<include refid="whereClause_sql"/>
+			<include refid="whereClause_sql"/>
 		</where>
 	order by 
 			id_ asc

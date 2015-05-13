@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="node/getGroupVersions" log="false" className="com.vurt.node.server.service.NodeService" method="getGroupVersions">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取分组版本信息</name>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="方法返回值" type="java.util.Map"/>
+  </outputs>
+  <params/>
+  <return signature="QMap&lt;QString;QString;>;" type="java.util.Map"/>
+</CustomRule>
