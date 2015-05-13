@@ -36,6 +36,6 @@ public interface Constants {
 
     String MQ_CONFIG_USER_NAME = "mq.username";
 
-    String MQ_CONFIG_PASSWORD = "mqpassword";
+    String MQ_CONFIG_PASSWORD = "mq.password";
 
 }
