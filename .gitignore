@@ -18,3 +18,5 @@ node-server/target/
 node-agent/overlays/
 
 syncthing-client/target/
+
+agent-data/target/

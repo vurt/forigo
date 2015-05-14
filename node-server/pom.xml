@@ -48,6 +48,11 @@
             <version>4.1.4</version>
         </dependency>
         <dependency>
+		     <groupId>com.chinacreator.c2</groupId>
+		     <artifactId>c2-module-fs-dir</artifactId>
+		     <version>1.0.0</version>
+		</dependency>
+        <dependency>
             <groupId>com.rabbitmq</groupId>
             <artifactId>amqp-client</artifactId>
             <version>3.4.1</version>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="修改部署的应用版本" sn="modifyVersion" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="修改节点组部署的应用版本">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+        <dync:render/>
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroupId_html">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div"/>
+    </form:control>
+    <form:child xsi:type="form:Field" binding="$params.version" id="version" name="" customize="true">
+      <form:control type="widget/select_simple">
+        <form:attributes source="widget/select_simple">
+          <dync:attribute default="" group="下拉框设置" id="selectOptions" name="选项" value="$model.versions.versions">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="name" group="下拉框设置" id="optionName" name="显示属性名" value="version">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="-10">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="下拉框设置" id="nullValue" name="空值选项" value="未选择应用版本">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="基本设置" id="selectRequired" name="必填项" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" binding="$params.restartAt" id="restartAt" name="" customize="true">
+      <form:control type="widget/radio_group">
+        <form:attributes source="widget/radio_group">
+          <dync:attribute default="" group="单选按钮组设置" id="radioOptions" name="选项" value="{&quot;now&quot;:&quot;立即重启&quot;,&quot;midnight&quot;:&quot;今天午夜&quot;,&quot;custom&quot;:&quot;自定义&quot;}">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="false" group="单选按钮组设置" id="firstSelected" name="选中第一个" value="true">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="基本设置" id="lableWidth" name="lable宽度" value="-10">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup1" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="okBtn" name="确定" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-warning">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-check">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="okBtn_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="cancelBtn" name="取消" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-times">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="cancelBtn_click($event)">
+            <dync:render/>
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="versions" name="应用版本" logic="rule:com.vurt.node.server.service.getAppVersions" sn="appVersions"/>
+    <form:datasource xsi:type="form:LogicDataSource" id="countNode" name="计算节点个数" logic="rule:com.vurt.node.server.service.countNode" sn="node/count">
+      <form:param id="groups" name="分组" value="$params.groups"/>
+    </form:datasource>
+  </form:datasources>
+  <form:scripts>okBtn_click:function($event){
+	if(angular.isUndefined($params.version)||$params.version===&quot;&quot;){
+		Messenger.error(&quot;新应用版本不能为空&quot;);
+		return;
+	}
+	
+	$http.post('ws/node/changeAppVersion',{groups:$params.groups,version:$params.version}).success(function(){
+		Messenger.success(&quot;应用版本修改成功&quot;);
+		Modal.instance.close();
+	});
+},
+
+cancelBtn_click:function($event){
+	Modal.instance.dismiss();
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroupId_html&quot;>
+	&lt;div class=&quot;alert alert-warning&quot;>
+		&lt;p ng-if=&quot;$params.groups.length>0&quot;>修改以下分组终端上部署的应用版本：&lt;/p>
+		&lt;p ng-if=&quot;$params.groups.length>0&quot; class=&quot;green&quot;>{{$params.groups}}&lt;/p>
+		&lt;p>预计本次修改将会影响到&lt;strong ng-bind=&quot;$model.countNode.result&quot;>&lt;/strong>台终端，修改版本后，需要重启应用才能生效!&lt;/p>
+	&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>

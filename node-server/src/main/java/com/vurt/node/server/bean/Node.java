@@ -55,13 +55,7 @@ public class Node {
 	private java.sql.Timestamp regTime;
 
 	/**
-	 *同步设备id
-	 */
-	@Column(id = "device_id", datatype = "string128")
-	private java.lang.String deviceId;
-
-	/**
-	 *应用版本
+	 *应用版本(节点上部署的实际版本)
 	 */
 	@Column(id = "app_version", datatype = "string128")
 	private java.lang.String appVersion;
@@ -165,28 +159,14 @@ public class Node {
 	}
 
 	/**
-	 * 设置同步设备id
-	 */
-	public void setDeviceId(java.lang.String deviceId) {
-		this.deviceId = deviceId;
-	}
-
-	/**
-	 * 获取同步设备id
-	 */
-	public java.lang.String getDeviceId() {
-		return deviceId;
-	}
-
-	/**
-	 * 设置应用版本
+	 * 设置应用版本(节点上部署的实际版本)
 	 */
 	public void setAppVersion(java.lang.String appVersion) {
 		this.appVersion = appVersion;
 	}
 
 	/**
-	 * 获取应用版本
+	 * 获取应用版本(节点上部署的实际版本)
 	 */
 	public java.lang.String getAppVersion() {
 		return appVersion;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="node/changeAppVersion" log="false" className="com.vurt.node.server.comunication.CommandService" method="changeAppVersion">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>修改应用版本</name>
+  <desc>修改分组上部署的应用的版本</desc>
+  <inputs>
+    <input collection="false" desc="分组id" id="groups" name="分组id" required="true" type="[LString;"/>
+    <input collection="false" desc="" id="version" name="新应用版本" required="true" type="int"/>
+  </inputs>
+  <outputs/>
+  <params>
+    <param autoValue="Input.groups" name="groups" signature="[QString;" type="[LString;"/>
+    <param autoValue="Input.version" name="version" signature="I" type="int"/>
+  </params>
+  <return signature="V" type="void"/>
+</CustomRule>

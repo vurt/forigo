@@ -72,20 +72,29 @@ public class HeartBeatObserver extends Thread implements ServerStartup {
 				// 用JSON，懒得搞二进制协议
 				HeartBeat heartBeat = JSON.parseObject(delivery.getBody(),
 						HeartBeat.class);
-				Node node = JSON.parseObject(delivery.getBody(), Node.class);
 
 				System.out.println("接收到心跳信息:'" + new String(delivery.getBody())
 						+ "'");
 
-				if (StringUtils.isEmpty(node.getId())) {
+				if (StringUtils.isEmpty(heartBeat.getId())) {
 					LOGGER.error("节点id为空，心跳信息无效:"
 							+ new String(delivery.getBody()));
 					continue;
 				}
+				
+				Node node = new Node();
+				node.setId(heartBeat.getId());
+				node.setAppVersion(heartBeat.getApplication());
 
-				if (heartBeat.isFirstHearBeat()
-						&& !nodeService.containsNode(node.getId())) {
-					nodeService.addNode(node);
+				if (heartBeat.isFirstHeartBeat()) {
+					Node currNode=nodeService.getNode(node.getId());
+					if(currNode==null){
+						node.setAddress(heartBeat.getAddress());
+						node.setPosition(heartBeat.getPosition());
+						nodeService.addNode(node);
+					}else{
+						CommandService.getInstance().initNodeConnection(currNode);
+					}
 				} else {
 					nodeService.updateNode(node);
 				}
