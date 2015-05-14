@@ -18,6 +18,7 @@ public class ShutdownHook extends Thread {
 
     @Override
     public void run() {
+        System.out.println("开始关闭节点代理");
         if (appAssembleThread != null)
             appAssembleThread.stopThread();
         if (heartBeatJob != null)
