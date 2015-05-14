@@ -80,6 +80,16 @@ public class CommandService {
 				JSON.toJSONBytes(command));
 	}
 	
+	public void changeNodeProperties(int node,Map<String, String> properties) throws IOException{
+		String routeKey = "group.*." +	node;
+		
+		Command command = new Command();
+		command.setProperties(properties);
+		
+		channel.basicPublish(Constants.MQ_EXCHANGE_APPLICATION, routeKey, null,
+				JSON.toJSONBytes(command));
+	}
+	
 	/**
 	 * 修改节点的分组
 	 * 

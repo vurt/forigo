@@ -44,6 +44,7 @@
           <dync:children/>
         </dync:attribute>
         <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="border-bottom:1px dotted #CCC;">
+          <dync:render/>
           <dync:children/>
         </dync:attribute>
       </form:attributes>
@@ -107,6 +108,7 @@
             <dync:children/>
           </dync:attribute>
           <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="true">
+            <dync:render/>
             <dync:children/>
           </dync:attribute>
         </form:attributes>
@@ -127,9 +129,11 @@
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-white no-border">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
             <dync:attribute default="" group="HTML设置" id="iconColor" name="图标颜色" value="blue">
+              <dync:render/>
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -233,6 +237,9 @@
             </dync:attribute>
             <dync:attribute default="false" group="基本设置" id="fixed" name="宽度固定" value="true">
               <dync:render/>
+              <dync:children/>
+            </dync:attribute>
+            <dync:attribute default="false" group="表格设置" id="sortable" name="排序" value="true">
               <dync:children/>
             </dync:attribute>
           </form:attributes>
@@ -375,9 +382,23 @@ assginGroup_click:function(rowId,rowData,tableData){
 },
 
 position_customFormatter:function(cellvalue,options,rowObject){
-	return &quot;&lt;a href='javascript:void(0)' title='&quot;+cellvalue+&quot;'>查看地图&lt;/a>&quot;+&quot;  &quot;+rowObject.address;
+	return &quot;&lt;span class='location-column' title='经纬度：&quot;+cellvalue+&quot;'>&quot;+rowObject.address+&quot;&lt;a href='javascript:void(0)' class='location-modify' ng-click='functions.modifyLocation(\&quot;&quot;+rowObject.id+&quot;\&quot;)'>修改&lt;/a>&lt;/span> &quot;;
+},
+
+modifyLocation:function(id){
+	Modal.open('ef/node/edit',{id:id},function(){
+		$view.list.refresh();
+	});
 }</form:scripts>
-  <form:htmls>
+  <form:htmls>&lt;style>
+	.location-modify{
+		margin-left:5px;
+		display:none;
+	}
+	tr.ui-state-hover .location-modify{
+		display:inline-block;
+	}
+&lt;/style>
 &lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup2_html&quot;>
 	{{$params.filter}}
 &lt;/script></form:htmls>

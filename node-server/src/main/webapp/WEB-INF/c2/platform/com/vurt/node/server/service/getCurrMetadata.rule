@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="getCurrMetadata" log="false" className="com.vurt.node.server.service.MetadataService" method="getCurrMetadata">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>获取当前源数据</name>
+  <inputs/>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="最新版本的元数据" type="com.vurt.node.server.bean.Metadata"/>
+  </outputs>
+  <params/>
+  <return signature="QMetadata;" type="com.vurt.node.server.bean.Metadata"/>
+</CustomRule>

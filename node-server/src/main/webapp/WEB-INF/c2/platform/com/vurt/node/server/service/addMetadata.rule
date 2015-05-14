@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomRule xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://www.chinacreator.com/platform/mvc/rule" sn="addMatadata" log="false" className="com.vurt.node.server.service.MetadataService" method="addMetadata">
+  <instanceCreator>
+    <params/>
+  </instanceCreator>
+  <name>添加元数据配置</name>
+  <inputs>
+    <input collection="false" desc="" id="metadata" name="新的元数据" required="true" type="com.vurt.node.server.bean.Metadata"/>
+  </inputs>
+  <outputs>
+    <output autoValue="Result" desc="" id="result" name="元数据id" type="int"/>
+  </outputs>
+  <params>
+    <param autoValue="Input.metadata" name="metadata" signature="QMetadata;" type="com.vurt.node.server.bean.Metadata"/>
+  </params>
+  <return signature="I" type="int"/>
+</CustomRule>

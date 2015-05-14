@@ -1,15 +1,22 @@
 package com.vurt.node.data;
 
+import java.util.Map;
+
 import org.apache.maven.model.Model;
+import org.apache.maven.settings.Settings;
 
 /**
- * 分组和应用分配命令
+ * 节点命令，支持远程修改包括分组、应用版本、Maven Settings和node.properties
  */
 public class Command {
     private String group;
 
     private Model application;
-
+    
+    private Settings settings;
+    
+    private Map<String, String> properties;
+    
     public Command() {
 
     }
@@ -29,4 +36,20 @@ public class Command {
     public void setApplication(Model application) {
         this.application = application;
     }
+
+	public Settings getSettings() {
+		return settings;
+	}
+
+	public void setSettings(Settings settings) {
+		this.settings = settings;
+	}
+
+	public Map<String, String> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(Map<String, String> properties) {
+		this.properties = properties;
+	}
 }

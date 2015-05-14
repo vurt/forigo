@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form:Form xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dync="http://www.chinacreator.com/platform/mvc/ui/dync" xmlns:form="http://www.chinacreator.com/platform/mvc/form" name="上传元数据配置" sn="uploadMetadata" type="form">
+  <form:control type="page/modal">
+    <form:attributes source="page/modal">
+      <dync:attribute default="" group="HTML" id="title" name="标题" value="上传元数据配置">
+        <dync:children/>
+      </dync:attribute>
+      <dync:attribute default="" group="HTML" id="width" name="页面宽度" value="800px">
+        <dync:children/>
+      </dync:attribute>
+    </form:attributes>
+  </form:control>
+  <form:child xsi:type="form:Group" id="newGroup1" name="简单容器(DIV)">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="newGroup1_html">
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroupId" name="新分组">
+    <form:control type="container/div">
+      <form:attributes source="container/div">
+        <dync:attribute default="false" group="HTML配置" id="pure" name="简单div" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="12" group="HTML配置" id="span" name="占位数" value="12">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="0" group="HTML配置" id="offset" name="偏移" value="0">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="HTML配置" id="collapse" name="隐藏" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="defaultCollapse" name="隐藏默认值" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="autoHeight" name="自动高度" value="false">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="false" group="HTML配置" id="nopadding" name="无内边距" value="true">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="html" name="自定义HTML" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="cssClass" name="自定义class" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+        <dync:attribute default="" group="高级自定义" id="style" name="自定义style" value="">
+          <dync:render/>
+          <dync:children/>
+        </dync:attribute>
+      </form:attributes>
+    </form:control>
+    <form:child xsi:type="form:Field" id="newField" name="元数据配置文件(setting.xml)" customize="true">
+      <form:control type="widget/file_input_iframe">
+        <form:attributes source="widget/file_input_iframe">
+          <dync:attribute default="6" group="布局属性" id="span" name="占位数" value="12">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="75" group="布局属性" id="lableWidth" name="lable宽度" value="200">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="dbdir" group="HTML属性" id="process" name="上传处理器" value="dir">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件" id="onSuccess" name="上传成功" value="newField_onSuccess(data)">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="数据校验" id="allow" name="允许类型" value="[&quot;xml&quot;]">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:child xsi:type="form:Group" id="newGroup" name="对话框工具条">
+    <form:control type="container/toolbar_modal_footer">
+      <form:attributes source="container/toolbar_modal_footer"/>
+    </form:control>
+    <form:child xsi:type="form:Field" id="saveBtn" name="保存" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-save">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="btn-primary" group="HTML设置" id="style" name="样式" value="btn-success">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="saveBtn_click($event)">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+    <form:child xsi:type="form:Field" id="cancelBtn" name="取消" customize="true">
+      <form:control type="widget/button">
+        <form:attributes source="widget/button">
+          <dync:attribute default="" group="HTML设置" id="icon" name="图标" value="fa-times">
+            <dync:children/>
+          </dync:attribute>
+          <dync:attribute default="" group="事件设置" id="click" name="点击事件" value="cancelBtn_click($event)">
+            <dync:children/>
+          </dync:attribute>
+        </form:attributes>
+      </form:control>
+      <form:validation/>
+    </form:child>
+  </form:child>
+  <form:datasources>
+    <form:datasource xsi:type="form:Inputs"/>
+  </form:datasources>
+  <form:scripts>
+
+newField_onSuccess:function(data){
+	$params.settingsXml=data.path;
+	$params.url=data.url;
+},
+
+cancelBtn_click:function($event){
+	Modal.instance.dismiss();
+},
+
+saveBtn_click:function($event){
+	if(angular.isUndefined($params.settingsXml)||$params.settingsXml===&quot;&quot;){
+		Messenger.error(&quot;未选择元数据配置文件&quot;);
+		return;
+	}
+	$http.post('ws/addMatadata',{metadata:{settingsXml:$params.settingsXml,url:$params.url}}).success(function(){
+		Messenger.success(&quot;元数据修改成功!&quot;);
+		Modal.instance.close();
+	});
+}</form:scripts>
+  <form:htmls>
+&lt;script type=&quot;text/ng-template&quot; id=&quot;newGroup1_html&quot;>
+	&lt;div class=&quot;alert alert-warning&quot;>
+		&lt;p>元数据修改后会立即被同步到在线终端上，不在线终端在下次连接时更新&lt;/p>
+		&lt;p>新的元数据将在终端同步后第一次重启应用时生效&lt;/p>
+	&lt;/div>
+&lt;/script></form:htmls>
+</form:Form>
