@@ -25,7 +25,7 @@ public class Launcher {
 
 
     public static void main(String[] args) {
-        if (args == null && args.length > 0) {
+        if (args != null && args.length > 0) {
             AGENT_FOLDER_PATH = args[0];
         } else {
             JarUtil util = new JarUtil(Launcher.class);

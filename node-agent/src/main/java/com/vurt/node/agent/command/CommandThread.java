@@ -41,9 +41,8 @@ public class CommandThread extends Thread {
 
             nodeId = ConfigManager.getInstance().getConfig(Constants.NODE_ID);
 
-            //初始连接时，先把节点分到_none_分组
-            //服务端在接到初始心跳之后，会通过group._node_.{nodeid}的exchanged将当前节点的真实分组发送回来，并将应该部署的最新应用版本也一起发送回来
-            channel.queueBind(queueName, Constants.MQ_EXCHANGE_APPLICATION, "group." + Constants.NONE_GROUP_NAME + "." + nodeId);
+            //首先绑定group.#.节点id，针对节点的命令会以这种形式发回来
+            channel.queueBind(queueName, Constants.MQ_EXCHANGE_APPLICATION, "group.#." + nodeId);
 
             consumer = new QueueingConsumer(channel);
             channel.basicConsume(queueName, false, consumer);
@@ -56,19 +55,20 @@ public class CommandThread extends Thread {
 
     @Override
     public void run() {
+        String currGroup = null;
         while (running) {
             QueueingConsumer.Delivery delivery;
             try {
                 delivery = consumer.nextDelivery();
                 //收到的第一条消息一定是带有group信息的GroupApplicationAssignment
                 Command cmd = JSON.parseObject(delivery.getBody(), Command.class);
-                if (StringUtils.isNotEmpty(cmd.getGroup()) && !"_none_".equals(cmd.getGroup())) {
-                    //修改分组
-                    channel.queueUnbind(queueName, Constants.MQ_EXCHANGE_APPLICATION, "group." + Constants.NONE_GROUP_NAME + "." + nodeId);
-                    channel.queueBind(queueName, Constants.MQ_EXCHANGE_APPLICATION, "group." + cmd.getGroup() + "." + nodeId);
-                    //TODO 有没有必要？
-                    consumer = new QueueingConsumer(channel);
-                    channel.basicConsume(queueName, false, consumer);
+                if (StringUtils.isNotEmpty(cmd.getGroup()) && !StringUtils.equals(currGroup, cmd.getGroup())) {
+                    if (StringUtils.isNotEmpty(currGroup)) {
+                        channel.queueUnbind(queueName, Constants.MQ_EXCHANGE_APPLICATION, "group." + currGroup + ".*");
+                    }
+                    //再绑定group.分组id.*，所有按分组广播的命令从这里接收
+                    channel.queueBind(queueName, Constants.MQ_EXCHANGE_APPLICATION, "group." + cmd.getGroup() + ".*");
+                    currGroup = cmd.getGroup();
                 }
                 if (cmd.getApplication() != null) {
                     Model newModel = cmd.getApplication();
